@@ -1,10 +1,11 @@
 ﻿Console.Write("Введите количество людей в очереди: ");
 int queueCount = Convert.ToInt32(Console.ReadLine());
-int receoptTime = 10;
+int receptTime = 10;
+int hour = 60;
 
-int waitingTime = queueCount * receoptTime;
-int waitingTimeHours = waitingTime / 60;
-int waitingTimeMin = waitingTime % 60;
+int totalWaitingTime = queueCount * receptTime;
+int waitingTimeHours = totalWaitingTime / hour;
+int waitingTimeMinutes = totalWaitingTime % hour;
 
-Console.WriteLine($"Время ожидания {waitingTimeHours} часов {waitingTimeMin} минут");
+Console.WriteLine($"Время ожидания {waitingTimeHours} часов {waitingTimeMinutes} минут");
 
