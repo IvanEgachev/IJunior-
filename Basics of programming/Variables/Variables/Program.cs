@@ -1,4 +1,4 @@
-﻿bool iMan = true;
+﻿bool isIMan = true;
 string myName = "Ivan";
 uint howOldMe = 23;
 float myBirthdayDate = 18.07f;
