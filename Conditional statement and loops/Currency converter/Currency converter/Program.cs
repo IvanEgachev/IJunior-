@@ -50,7 +50,7 @@ do
         case "usd/rub":
 
             usdBalance -= transferAmount;
-            if (usdBalance > 0)
+            if (usdBalance >= 0)
                 rubBalance += transferAmount * usdRub;
             else Console.WriteLine("Ощибка. Недостаточно средств");
 
@@ -59,7 +59,7 @@ do
         case "rub/usd":
 
             rubBalance -= transferAmount;
-            if (rubBalance > 0)
+            if (rubBalance >= 0)
                 usdBalance += transferAmount * rubUsd;
             else Console.WriteLine("Ощибка. Недостаточно средств");
 
@@ -68,7 +68,7 @@ do
         case "rub/cny":
 
             rubBalance -= transferAmount;
-            if (rubBalance > 0)
+            if (rubBalance >= 0)
                 cnyBalance += transferAmount * rubCny;
             else Console.WriteLine("Ощибка. Недостаточно средств");
 
@@ -77,7 +77,7 @@ do
         case "cny/rub":
 
             cnyBalance -= transferAmount;
-            if (cnyBalance > 0)
+            if (cnyBalance >= 0)
                 rubBalance += transferAmount * cnyRub;
             else Console.WriteLine("Ощибка. Недостаточно средств");
 
@@ -86,7 +86,7 @@ do
         case "cny/usd":
 
             cnyBalance -= transferAmount;
-            if (cnyBalance > 0)
+            if (cnyBalance >= 0)
                 usdBalance += transferAmount * cnyUsd;
             else Console.WriteLine("Ощибка. Недостаточно средств");
 
@@ -94,7 +94,7 @@ do
 
         case "usd/cny":
             usdBalance -= transferAmount;
-            if (usdBalance > 0)
+            if (usdBalance >= 0)
                 cnyBalance += transferAmount * usdCny;
             else Console.WriteLine("Ощибка. Недостаточно средств");
 
