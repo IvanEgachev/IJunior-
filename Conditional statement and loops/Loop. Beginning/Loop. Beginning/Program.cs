@@ -2,9 +2,9 @@
 string message = Console.ReadLine();
 
 Console.Write("How many times repeat this message: ");
-int timesToReapeat = Convert.ToInt32(Console.ReadLine());
+int timesToReapeatMessage = Convert.ToInt32(Console.ReadLine());
 
-for (int i = 0; i < timesToReapeat; i++)
+for (int i = 0; i < timesToReapeatMessage; i++)
 {
     Console.WriteLine(message);
 }
