@@ -1,23 +1,20 @@
-﻿//Вывести имя в прямоугольник из символа, который введет сам пользователь.
-//Вы запрашиваете имя, после запрашиваете символ, а после отрисовываете в консоль его имя в прямоугольнике из его символов.
-
-Console.Write("Введите Ваше имя: ");
+﻿Console.Write("Введите Ваше имя: ");
 string inputName = Console.ReadLine();
 
 Console.Write("Введите символ для отрисовки рамки: ");
-string inputSymbol = Console.ReadLine();
+string inputDrawSymbol = Console.ReadLine();
 
-inputName = inputSymbol+inputName+inputSymbol;
+inputName = inputDrawSymbol + inputName+ inputDrawSymbol;
+int drawBordersCount = 2;
 
-bool isLastString = false;
-for (int i = 0; i < inputName.Length; i++)
-{ 
-    Console.Write(inputSymbol);
-    if (i == inputName.Length - 1 && isLastString == false)
+for (int i = 0; i < drawBordersCount; i++)
+{
+
+    for (int j = 0; j < inputName.Length; j++)
     {
-        Console.WriteLine();
-        Console.WriteLine(inputName);
-        i = 0;
-        isLastString = true;
+        Console.Write(inputDrawSymbol);
     }
+
+    if (i == 0)
+        Console.WriteLine("\n" + inputName);
 }
