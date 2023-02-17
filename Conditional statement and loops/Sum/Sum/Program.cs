@@ -1,4 +1,5 @@
 ﻿Random random = new Random();
+
 int number = random.Next(101);
 Console.WriteLine("Начальное число: "+number);
 
