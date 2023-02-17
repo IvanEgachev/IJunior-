@@ -1,13 +1,26 @@
-﻿//У пользователя есть баланс в каждой из представленных валют (3 валюты). 
-//Он может попросить сконвертировать часть баланса с одной валюты в другую. 
-//Тогда у него с баланса одной валюты снимется X и зачислится на баланс другой Y. 
-//Курс конвертации должен быть просто прописан в программе.
-//По имени переменной курса конвертации должно быть понятно, из какой валюты в какую валюту конвертируется.
+﻿const int usdToRubCommand = 21;
+const int rubToUsdCommand = 12;
+const int cnyToRubCommand = 31;
+const int rubToCnyCommand = 13;
+const int usdToCnyCommand = 23;
+const int cnyToUsdCommand = 32;
 
-//Программа должна завершиться тогда, когда это решит пользователь.
+const string exitCommand = "y";
+
+float usdToRub = 69.24f;
+float rubToUsd = 0.014f;
+
+float cnyToRub = 10.27f;
+float rubToCny = 0.097f;
+
+float usdToCny = 6.78f;
+float cnyToUsd = 0.15f;
 
 float transferAmount;
-string convertFrom, convertTo;
+string convertFrom = "";
+string convertTo= "";
+string userInput = "";
+
 
 Console.Write("Введите сумму рублей, которая у Вас имеется: ");
 float rubBalance = Convert.ToSingle(Console.ReadLine());
@@ -18,21 +31,12 @@ float usdBalance = Convert.ToSingle(Console.ReadLine());
 Console.Write("Введите сумму юаней, которая у Вас имеется: ");
 float cnyBalance = Convert.ToSingle(Console.ReadLine());
 
-float usdRub = 69.24f;
-float rubUsd = 0.014f;
-
-float cnyRub = 10.27f;
-float rubCny = 0.097f;
-
-float usdCny = 6.78f;
-float cnyUsd = 0.15f;
-
-do
+while (userInput != exitCommand)
 {
-    Console.Write("\nВыберите валюту из которой хотите перевести (rub, usd, cny)? ");
+    Console.Write("\nВыберите валюту из которой хотите перевести ( 1. rub, 2. usd, 3. cny)? ");
     convertFrom = Console.ReadLine();
 
-    Console.Write("Выберите валюту в которую хотите перевести (rub, usd, cny)? ");
+    Console.Write("Выберите валюту в которую хотите перевести (1. rub, 2. usd, 3. cny)? ");
     convertTo = Console.ReadLine();
 
     if (convertFrom == convertTo)
@@ -44,60 +48,86 @@ do
     Console.Write("Введите сумму которую хотите перевести ? ");
     transferAmount = Convert.ToSingle(Console.ReadLine());
 
-    string currenciesPair = $"{convertFrom}/{convertTo}";
+    int currenciesPair = Convert.ToInt32(convertFrom + convertTo);
+
     switch (currenciesPair)
     {
-        case "usd/rub":
+        case usdToRubCommand:
 
             usdBalance -= transferAmount;
+
             if (usdBalance >= 0)
-                rubBalance += transferAmount * usdRub;
-            else Console.WriteLine("Ощибка. Недостаточно средств");
-
+                rubBalance += transferAmount * usdToRub;
+            else
+            {
+                Console.WriteLine("Ощибка. Недостаточно средств");
+                usdBalance += transferAmount;
+            }
             break;
 
-        case "rub/usd":
+        case rubToUsdCommand:
 
             rubBalance -= transferAmount;
-            if (rubBalance >= 0)
-                usdBalance += transferAmount * rubUsd;
-            else Console.WriteLine("Ощибка. Недостаточно средств");
 
+            if (rubBalance >= 0)
+                usdBalance += transferAmount * rubToUsd;
+            else
+            {
+                Console.WriteLine("Ощибка. Недостаточно средств");
+                rubBalance += transferAmount;
+            }
             break;
 
-        case "rub/cny":
+        case cnyToRubCommand:
+           
+            cnyBalance -= transferAmount;
+
+            if (cnyBalance >= 0)
+                rubBalance += transferAmount * cnyToRub;
+            else
+            {
+                Console.WriteLine("Ощибка. Недостаточно средств");
+                cnyBalance += transferAmount;
+            }
+            break;
+
+        case rubToCnyCommand:
 
             rubBalance -= transferAmount;
+
             if (rubBalance >= 0)
-                cnyBalance += transferAmount * rubCny;
-            else Console.WriteLine("Ощибка. Недостаточно средств");
-
+                cnyBalance += transferAmount * rubToCny;
+            else
+            {
+                Console.WriteLine("Ощибка. Недостаточно средств");
+                rubBalance += transferAmount;
+            }
             break;
 
-        case "cny/rub":
+        case usdToCnyCommand:
 
-            cnyBalance -= transferAmount;
-            if (cnyBalance >= 0)
-                rubBalance += transferAmount * cnyRub;
-            else Console.WriteLine("Ощибка. Недостаточно средств");
-
-            break;
-
-        case "cny/usd":
-
-            cnyBalance -= transferAmount;
-            if (cnyBalance >= 0)
-                usdBalance += transferAmount * cnyUsd;
-            else Console.WriteLine("Ощибка. Недостаточно средств");
-
-            break;
-
-        case "usd/cny":
             usdBalance -= transferAmount;
-            if (usdBalance >= 0)
-                cnyBalance += transferAmount * usdCny;
-            else Console.WriteLine("Ощибка. Недостаточно средств");
 
+            if (usdBalance >= 0)
+                cnyBalance += transferAmount * usdToCny;
+            else
+            {
+                Console.WriteLine("Ощибка. Недостаточно средств");
+                usdBalance += transferAmount;
+            }
+            break;
+
+        case cnyToUsdCommand:
+
+            cnyBalance -= transferAmount;
+
+            if (cnyBalance >= 0)
+                usdBalance += transferAmount * cnyToUsd;
+            else
+            {
+                Console.WriteLine("Ощибка. Недостаточно средств");
+                cnyBalance += transferAmount;
+            }
             break;
 
         default:
@@ -106,6 +136,7 @@ do
     }
 
     Console.WriteLine($"Баланс ваших валютных счетов: rub {rubBalance}, usd {usdBalance}, cny {cnyBalance}.");
-    Console.Write("Чтобы закончить работу программы нажмите  Y");
 
-} while (Console.ReadKey().Key != ConsoleKey.Y);
+    Console.Write("Чтобы закончить работу программы введите  Y ");
+    userInput = Console.ReadLine();
+} 
