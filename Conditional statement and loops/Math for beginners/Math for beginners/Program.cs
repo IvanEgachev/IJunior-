@@ -1,9 +1,16 @@
 ﻿using System.Drawing;
 
-Random rand = new Random();
+Random random = new Random();
 
-while(true)
+bool shutdown  = false;
+
+while(!shutdown)
 {
+    const int AddSubstractCommand = 1;
+    const int MultiplicationTableCommand = 2;
+    const int ComparisonCommand = 3;
+    const int ExitCommand =  4;
+
     Console.WriteLine("Математика для начинающих. \nГлавное меню.");
 
     Console.ForegroundColor = ConsoleColor.Magenta;
@@ -20,28 +27,32 @@ while(true)
 
     Console.ForegroundColor = ConsoleColor.White;
 
-    string command = Console.ReadLine();
+    int command =  Convert.ToInt32(Console.ReadLine());
 
     switch (command)
     {
-        case "1":
+        case AddSubstractCommand:
+
             Console.BackgroundColor = ConsoleColor.Magenta;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Clear();
 
+            char plusSign = '+';
+            char minusSign = '-';
+
             int expressionValue = 0;
-            int firstValue = rand.Next(1,21);
-            int secondValue = rand.Next(1, 21);
+            int firstValue = random.Next(1,21);
+            int secondValue = random.Next(1, 21);
             
-            char exspressionType = rand.Next(2) == 0 ? '+' : '-';
+            char exspressionType = random.Next(2) == 0 ? plusSign : minusSign;
             string outputExspression = "";
 
-            if (exspressionType == '+')
+            if (exspressionType == plusSign)
             {
                 expressionValue = firstValue + secondValue;
                 outputExspression = $"Решите выражение: {firstValue} + {secondValue} = ";
             }
-            else if (exspressionType == '-')
+            else if (exspressionType == minusSign)
             {
                 if (firstValue >= secondValue)
                 {
@@ -78,33 +89,40 @@ while(true)
             Console.ForegroundColor = ConsoleColor.White;
             break;
 
-        case "2":
+        case MultiplicationTableCommand:
+
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.Clear();
 
             Console.WriteLine("\t\t\tТаблица умножения \n");
             Console.WriteLine("    |  1\t2\t3\t4\t5\t6\t7\t8\t9");
             Console.Write("--------------------------------------------------------------------------\n");
+
+            int firstTableNumeral = 1;
+            int lastTableNumeral = 9;
           
-            for (int i = 1; i < 10; i++)
+            for (int i = firstTableNumeral; i < lastTableNumeral +1; i++)
             {
                 Console.Write(i + "   |  ");
-                for (int j = 1; j < 10; j++)
+
+                for (int j = firstTableNumeral; j < lastTableNumeral + 1; j++)
                 {
                     Console.Write(i * j+ "\t");
                 }
+
                 Console.WriteLine("");
             }
 
             Console.ReadKey();
             break;
 
-        case "3":
+        case ComparisonCommand:
+
             Console.BackgroundColor = ConsoleColor.DarkYellow;
             Console.Clear();
 
-            int leftBorderNumber = rand.Next(0,500);
-            int rightBorderNumber = leftBorderNumber + rand.Next(10,200);
+            int leftBorderNumber = random.Next(0,500);
+            int rightBorderNumber = leftBorderNumber + random.Next(10,200);
 
             Console.WriteLine("Введите число, которое удовлевтворяет следующему условию:");
             Console.Write($"{leftBorderNumber} <     > {rightBorderNumber}");
@@ -128,8 +146,11 @@ while(true)
             Console.ReadKey();
             break;
 
-        case "4":
-            return;
+        case ExitCommand:
+
+            shutdown = true;
+            break;
+
         default:
             Console.WriteLine("Неверная команда!");
             Console.ReadKey();
