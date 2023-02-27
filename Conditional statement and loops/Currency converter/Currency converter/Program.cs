@@ -1,11 +1,11 @@
-﻿const int usdToRubCommand = 21;
-const int rubToUsdCommand = 12;
-const int cnyToRubCommand = 31;
-const int rubToCnyCommand = 13;
-const int usdToCnyCommand = 23;
-const int cnyToUsdCommand = 32;
+﻿const int UsdToRubCommand = 21;
+const int RubToUsdCommand = 12;
+const int CnyToRubCommand = 31;
+const int RubToCnyCommand = 13;
+const int UsdToCnyCommand = 23;
+const int CnyToUsdCommand = 32;
 
-const string exitCommand = "y";
+string exitCommand = "y";
 
 float usdToRub = 69.24f;
 float rubToUsd = 0.014f;
@@ -52,82 +52,94 @@ while (userInput != exitCommand)
 
     switch (currenciesPair)
     {
-        case usdToRubCommand:
-
+        case UsdToRubCommand:
             usdBalance -= transferAmount;
 
             if (usdBalance >= 0)
+            {
                 rubBalance += transferAmount * usdToRub;
+            }
             else
             {
                 Console.WriteLine("Ощибка. Недостаточно средств");
                 usdBalance += transferAmount;
             }
+
             break;
 
-        case rubToUsdCommand:
-
+        case RubToUsdCommand:
             rubBalance -= transferAmount;
 
             if (rubBalance >= 0)
+            {
                 usdBalance += transferAmount * rubToUsd;
+            }
             else
             {
                 Console.WriteLine("Ощибка. Недостаточно средств");
                 rubBalance += transferAmount;
             }
+
             break;
 
-        case cnyToRubCommand:
-           
+        case CnyToRubCommand:
             cnyBalance -= transferAmount;
 
             if (cnyBalance >= 0)
+            {
                 rubBalance += transferAmount * cnyToRub;
+            }
             else
             {
                 Console.WriteLine("Ощибка. Недостаточно средств");
                 cnyBalance += transferAmount;
             }
+
             break;
 
-        case rubToCnyCommand:
-
+        case RubToCnyCommand:
             rubBalance -= transferAmount;
 
             if (rubBalance >= 0)
+            {
                 cnyBalance += transferAmount * rubToCny;
+            }            
             else
             {
                 Console.WriteLine("Ощибка. Недостаточно средств");
                 rubBalance += transferAmount;
             }
+
             break;
 
-        case usdToCnyCommand:
-
+        case UsdToCnyCommand:
             usdBalance -= transferAmount;
 
             if (usdBalance >= 0)
+            {
                 cnyBalance += transferAmount * usdToCny;
+            }
             else
             {
                 Console.WriteLine("Ощибка. Недостаточно средств");
                 usdBalance += transferAmount;
             }
+
             break;
 
-        case cnyToUsdCommand:
-
+        case CnyToUsdCommand:
             cnyBalance -= transferAmount;
 
             if (cnyBalance >= 0)
+            {
                 usdBalance += transferAmount * cnyToUsd;
+            }
             else
             {
                 Console.WriteLine("Ощибка. Недостаточно средств");
                 cnyBalance += transferAmount;
             }
+
             break;
 
         default:
@@ -137,6 +149,6 @@ while (userInput != exitCommand)
 
     Console.WriteLine($"Баланс ваших валютных счетов: rub {rubBalance}, usd {usdBalance}, cny {cnyBalance}.");
 
-    Console.Write("Чтобы закончить работу программы введите  Y ");
+    Console.Write("Чтобы закончить работу программы введите  \"y\" ");
     userInput = Console.ReadLine();
 } 
