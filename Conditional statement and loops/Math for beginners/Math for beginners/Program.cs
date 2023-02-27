@@ -2,9 +2,9 @@
 
 Random random = new Random();
 
-bool shutdown  = false;
+bool isShutdown  = false;
 
-while(!shutdown)
+while(isShutdown == false)
 {
     const int AddSubstractCommand = 1;
     const int MultiplicationTableCommand = 2;
@@ -32,7 +32,6 @@ while(!shutdown)
     switch (command)
     {
         case AddSubstractCommand:
-
             Console.BackgroundColor = ConsoleColor.Magenta;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Clear();
@@ -40,11 +39,16 @@ while(!shutdown)
             char plusSign = '+';
             char minusSign = '-';
 
+            int minExspressionValue = 1;
+            int maxExspressionValue = 20;
+
             int expressionValue = 0;
-            int firstValue = random.Next(1,21);
-            int secondValue = random.Next(1, 21);
+            int firstValue = random.Next(minExspressionValue, maxExspressionValue + 1);
+            int secondValue = random.Next(minExspressionValue, maxExspressionValue + 1);
+
+            int taskOptionsCount = 2;
             
-            char exspressionType = random.Next(2) == 0 ? plusSign : minusSign;
+            char exspressionType = random.Next(taskOptionsCount) == 0 ? plusSign : minusSign;
             string outputExspression = "";
 
             if (exspressionType == plusSign)
@@ -90,7 +94,6 @@ while(!shutdown)
             break;
 
         case MultiplicationTableCommand:
-
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.Clear();
 
@@ -117,12 +120,17 @@ while(!shutdown)
             break;
 
         case ComparisonCommand:
-
             Console.BackgroundColor = ConsoleColor.DarkYellow;
             Console.Clear();
 
-            int leftBorderNumber = random.Next(0,500);
-            int rightBorderNumber = leftBorderNumber + random.Next(10,200);
+            int minFirstCompareValue = 0;
+            int maxFirstCompareValue = 500;
+
+            int minDifference = 10;
+            int maxDifference = 200;
+
+            int leftBorderNumber = random.Next(minFirstCompareValue, maxFirstCompareValue);
+            int rightBorderNumber = leftBorderNumber + random.Next(minDifference, maxDifference);
 
             Console.WriteLine("Введите число, которое удовлевтворяет следующему условию:");
             Console.Write($"{leftBorderNumber} <     > {rightBorderNumber}");
@@ -147,8 +155,7 @@ while(!shutdown)
             break;
 
         case ExitCommand:
-
-            shutdown = true;
+            isShutdown = true;
             break;
 
         default:
