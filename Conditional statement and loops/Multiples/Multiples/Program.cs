@@ -1,12 +1,17 @@
-﻿
-int count = 0;
+﻿Random random = new Random();
 
-for (int i = 100; i < 1001; i++)
+int number = random.Next(1, 28);
+int last3DigitNumber = 999;
+int multiplesNumbers = 0;
+
+Console.WriteLine("Выбранное число из диапозона:" + number);
+
+for (int i = number; i <= last3DigitNumber; i+=number)
 {
-	if (i % 5 == 0)
-	{
-		count++;
-	}
+    if ((int)Math.Log10(i) + 1 == 3)
+    {
+        multiplesNumbers++;
+    }
 }
 
-Console.WriteLine(count +" "+ 1000/18);
+Console.WriteLine($"Количество чисел кратных {number} - {multiplesNumbers}");
