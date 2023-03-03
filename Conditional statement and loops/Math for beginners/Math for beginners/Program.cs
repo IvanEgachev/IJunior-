@@ -14,16 +14,16 @@ while(isShutdown == false)
     Console.WriteLine("Математика для начинающих. \nГлавное меню.");
 
     Console.ForegroundColor = ConsoleColor.Magenta;
-    Console.WriteLine("1. Сложение/Вычитание");
+    Console.WriteLine($"{AddSubstractCommand}. Сложение/Вычитание");
 
     Console.ForegroundColor = ConsoleColor.Blue;
-    Console.WriteLine("2. Таблица умножения");
+    Console.WriteLine($"{MultiplicationTableCommand}. Таблица умножения");
 
     Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.WriteLine("3. Сравнения");
+    Console.WriteLine($"{ComparisonCommand}. Сравнения");
 
     Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("4. Завершить работу.");
+    Console.WriteLine($"{ExitCommand}. Завершить работу.");
 
     Console.ForegroundColor = ConsoleColor.White;
 
