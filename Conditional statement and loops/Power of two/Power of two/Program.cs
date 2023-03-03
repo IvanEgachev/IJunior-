@@ -1,15 +1,16 @@
 ﻿Random random = new Random();
 
-long number = random.Next();
-Console.WriteLine("Исходное число "+number);
+long inputNumber = random.Next();
+Console.WriteLine("Исходное число "+ inputNumber);
 
-int powerOfTwo = 0;
-long numberToPower = 1;
+int numberToPower = 2;
+int powerOfNumber = 0;
+long result = 1;
 
-while (numberToPower < number)
+while (result <= inputNumber)
 {
-    numberToPower *= 2;
-    powerOfTwo++; 
+    result *= numberToPower;
+    powerOfNumber++; 
 }
    
-Console.WriteLine($"Степень двойки, превышающее исходное число  {powerOfTwo} ({numberToPower})");
+Console.WriteLine($"Степень двойки, превышающее исходное число  {powerOfNumber} ({result})");
