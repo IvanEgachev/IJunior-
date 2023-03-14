@@ -1,25 +1,31 @@
-﻿string secretMessage = "This is secret message";
+﻿string secretMessage = "Где нет стремления к счастью, там нет и стремления вообще. Стремление к счастью — это стремление стремлений.";
 
-Console.Write("Создайте пароль: ");
-string createdPassword = Console.ReadLine();
+Console.Write("Придумайте пароль: ");
+string password = Console.ReadLine();
 
-int attemptsCount = 3;
+string confirmPassword;
+bool canAccess = false;
+int getAccessAttempsCount = 3;
 
-string checkedPassword ="";
-
-Console.WriteLine("Введите пароль:");
-for (int i = attemptsCount; i > 0; i--)
+for (int i = getAccessAttempsCount; i > 0; i--)
 {
-    checkedPassword = Console.ReadLine();
+    Console.Write("Введите пароль:");
+    confirmPassword = Console.ReadLine();
 
-    if(createdPassword == checkedPassword)
+    if (password == (confirmPassword))
     {
-        Console.WriteLine($"Успешно! {secretMessage}");
+        Console.WriteLine($"Успешно! Вы получили доступ к секретному сообщению. \n Секретное сообщение: {secretMessage}");
+        canAccess = true;
         break;
     }
     else
     {
         Console.WriteLine($"Неверный пароль. Осталось попыток {i-1}");
     }
+}
+
+if (canAccess == false)
+{
+    Console.WriteLine("Отказано в доступе! Превышен лимит попыток");
 }
 
