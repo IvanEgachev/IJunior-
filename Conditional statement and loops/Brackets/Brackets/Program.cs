@@ -1,27 +1,25 @@
-﻿//Console.Write("Введите строку скобок");
-//string inputBrackets = Console.ReadLine();
-
-//string inputBrackets = "(()((()))())";
-string inputBrackets = "(()(()))";
+﻿Console.Write("Введите скобочное выражение :");
+string inputBracketsExpression = Console.ReadLine();
 
 int maxNesting = 0;
 int openBrackets = 0;
+bool isWrongExspression = false;
 
-for (int i = 0; i < inputBrackets.Length; i++)
+for (int i = 0; i < inputBracketsExpression.Length; i++)
 {
-    if (inputBrackets[0] == ')')
-    {
-        Console.WriteLine("Ошибка");
-        break;
-    }
-
-    if (inputBrackets[i] == '(')
+    if (inputBracketsExpression[i] == '(')
     {
         openBrackets++;
     }
-    else if (inputBrackets[i] == ')' && openBrackets != 0)
+    else 
     {
         openBrackets--;
+    }
+
+    if (openBrackets < 0)
+    {
+        isWrongExspression = true;
+        break;
     }
 
     if (openBrackets > maxNesting)
@@ -30,5 +28,13 @@ for (int i = 0; i < inputBrackets.Length; i++)
     }
 }
 
-Console.WriteLine(maxNesting + " " + openBrackets);
+if (openBrackets == 0 && isWrongExspression == false)
+{
+    Console.WriteLine($"Скобочное выражение верно. Максимальная вложенность {maxNesting}");
+}
+else
+{
+    Console.WriteLine("Некорректное скобочное выражение.");
+}
+
 
