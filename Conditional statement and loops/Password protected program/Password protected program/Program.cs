@@ -1,13 +1,13 @@
-﻿string secretMessage = "Где нет стремления к счастью, там нет и стремления вообще. Стремление к счастью — это стремление стремлений.";
+﻿string secretMessage = " Где нет стремления к счастью, там нет и стремления вообще. Стремление к счастью — это стремление стремлений.";
 
 Console.Write("Придумайте пароль: ");
 string password = Console.ReadLine();
 
 string confirmPassword;
 bool canAccess = false;
-int getAccessAttempsCount = 3;
+int attempsCount = 3;
 
-for (int i = getAccessAttempsCount; i > 0; i--)
+for (int i = attempsCount; i > 0; i--)
 {
     Console.Write("Введите пароль:");
     confirmPassword = Console.ReadLine();
