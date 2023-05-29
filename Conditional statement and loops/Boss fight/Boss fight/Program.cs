@@ -6,17 +6,17 @@ float userArmor = 35;
 float userAttack = 0;
 float userDamageMultiplier = 1.0f;
 
-const int spell1 = 1;
+const int Spell1 = 1;
 string spell1Name = "Огненный ливень";
 int spell1Attack = 40;
 int spell1AccuracyPercent = 75;
 
-const int spell2 = 2;
+const int Spell2 = 2;
 string spell2Name = "Ледяной поцелуй";
 int spell2Attack = 30;
 int spell2AccuracyPercent = 90;
 
-const int spell3 = 3;
+const int Spell3 = 3;
 string spell3Name = "Травки-муравки";
 float useHealthPointLessThan = 0.5f;
 int useHealthPointLessThanPercentage = (int)(useHealthPointLessThan * 100);
@@ -26,7 +26,7 @@ float userDamageDowngrade = 0.3f;
 int userDamageDowngradePercentage = (int)(userDamageDowngrade * 100); 
 int useSpell3Times = 3;
 
-const int spell4 = 4;
+const int Spell4 = 4;
 string spell4Name = "Силы духов";
 float userDamageBoost = 0.5f;
 int userDamageBoostPercentage =  (int)(userDamageBoost * 100);   
@@ -60,14 +60,14 @@ while (userHealth > 0 && bossHealth > 0)
 
     Console.BackgroundColor = ConsoleColor.DarkGray;
     Console.WriteLine("\nВыберите одну из способностей:");
-    Console.WriteLine($"{spell1} {spell1Name}: наносит {spell1Attack} урона, точность {spell1AccuracyPercent}%, " +
+    Console.WriteLine($"{Spell1} {spell1Name}: наносит {spell1Attack} урона, точность {spell1AccuracyPercent}%, " +
         $"на 1 ход разрушает броню врага");
-    Console.WriteLine($"{spell2} {spell2Name}: наносит {spell2Attack} урона, точность {spell2AccuracyPercent}%, " +
+    Console.WriteLine($"{Spell2} {spell2Name}: наносит {spell2Attack} урона, точность {spell2AccuracyPercent}%, " +
         $"при разрушенной броне урон проходит в тело врага");
-    Console.WriteLine($"{spell3} {spell3Name}: дает дополнитьльные {userHealthBoostPercentage}% жизни от начального урона," +
+    Console.WriteLine($"{Spell3} {spell3Name}: дает дополнитьльные {userHealthBoostPercentage}% жизни от начального урона," +
         $" но снижает урон на {userDamageDowngradePercentage}%. Можно применить если жизней меньше {useHealthPointLessThanPercentage}%." +
         $"Осталось {useSpell3Times}");
-    Console.WriteLine($"{spell4} {spell4Name}: увеличивает урон на {userDamageBoostPercentage}%, " +
+    Console.WriteLine($"{Spell4} {spell4Name}: увеличивает урон на {userDamageBoostPercentage}%, " +
         $"при этом количество жизней уменьшается на {userHealthDownGradePercentage}%");
 
     Console.BackgroundColor = ConsoleColor.Black;
@@ -89,7 +89,7 @@ while (userHealth > 0 && bossHealth > 0)
 
     switch (selectedSpell)
 	{
-		case spell1:
+		case Spell1:
 			int spell1AttackSpread = Convert.ToInt32(spell1Attack * damageSpread);
 
             if (userHitPropability <= spell1AccuracyPercent)
@@ -101,7 +101,7 @@ while (userHealth > 0 && bossHealth > 0)
 
             break;
 
-		case spell2:
+		case Spell2:
             int splell2AttackSpread = Convert.ToInt32(spell2Attack * damageSpread);
 
             if (userHitPropability <= spell2AccuracyPercent)
@@ -109,7 +109,7 @@ while (userHealth > 0 && bossHealth > 0)
                 isUserHit = true;
             }
 
-            if (previousSpell == spell1 && isUserHit == true)
+            if (previousSpell == Spell1 && isUserHit == true)
 			{
 				isActiveBossArmor = false;
 			}
@@ -118,7 +118,7 @@ while (userHealth > 0 && bossHealth > 0)
 
             break;
 
-		case spell3:
+		case Spell3:
             if (useSpell3Times > 0 && userHealth <= userStartGameHealth * useHealthPointLessThan)
             {
                 userHealth *= (1 + userHealthBoost);
@@ -143,7 +143,7 @@ while (userHealth > 0 && bossHealth > 0)
 
 			break;
 
-        case spell4:
+        case Spell4:
             userHealth *= (1-userHealthDownGrade);
             userDamageMultiplier = 1 + userDamageBoost;
 
