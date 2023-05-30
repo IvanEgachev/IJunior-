@@ -35,6 +35,3 @@ for (int i = 0; i < rows; i++)
 }
 
 Console.WriteLine("Сумма второй строки:"+ secondRowSum + ", произведение первого столбца: " + firstColumnMultiplication);
-
-
-
