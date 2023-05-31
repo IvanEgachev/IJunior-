@@ -26,6 +26,7 @@ for (int i = 0; i < rows; i++)
         matrix[i, j] = random.Next(minMatrixNumber, maxMatrixNumber);
         Console.Write(Convert.ToString(matrix[i, j]) + '\t');
     }
+
     Console.WriteLine();
 }
 
