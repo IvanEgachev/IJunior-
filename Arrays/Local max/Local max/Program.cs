@@ -10,11 +10,11 @@ int columns = Convert.ToInt32(Console.ReadLine());
 
 matrix = new int[rows, columns];
 
-int secondRow = 1;
-int secondRowSum = 0;
+int rowIndex = 1;
+int rowSum = 0;
 
-int firstColumn = 0;
-int firstColumnMultiplication = 1;
+int columnIndex = 0;
+int columnMultiplication = 1;
 
 int minMatrixNumber = 0;
 int maxMatrixNumber = 100;
@@ -32,12 +32,12 @@ for (int i = 0; i < rows; i++)
 
 for (int i = 0; i < columns; i++)
 {
-        secondRowSum += matrix[secondRow, i];
+        rowSum += matrix[rowIndex, i];
 }
 
 for (int i = 0; i < rows; i++)
 {
-    firstColumnMultiplication *= matrix[i, firstColumn];
+   columnMultiplication *= matrix[i, columnIndex];
 }
 
-Console.WriteLine("Сумма второй строки:"+ secondRowSum + ", произведение первого столбца: " + firstColumnMultiplication);
+Console.WriteLine("Сумма второй строки:"+ rowSum + ", произведение первого столбца: " + columnMultiplication);
