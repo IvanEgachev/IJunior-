@@ -37,6 +37,7 @@ while (!isExit)
             {
                 Console.WriteLine("Введено некорректоное значение");
             }        
+
             break;
 
             Console.ReadKey();
