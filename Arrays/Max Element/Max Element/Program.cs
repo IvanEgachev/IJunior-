@@ -3,6 +3,8 @@
 int[,] matrix = new int[10, 10];
 int maxElement = int.MinValue;
 
+int elementToReplace = 0;
+
 int minRandomElement = 0;
 int maxRandomElemnt = 20;
 
@@ -34,7 +36,7 @@ for (int i = 0; i < matrix.GetLength(0); i++)
     {
         if (matrix[i, j] == maxElement)
         {
-            matrix[i, j] = 0;
+            matrix[i, j] = elementToReplace;
         }
     }
 }
