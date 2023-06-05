@@ -1,19 +1,26 @@
-﻿Random rand = new Random();
+﻿Random random = new Random();
 
 int[] array;
 
+Console.WriteLine("Укажите размерность массива: ");
 int arrayLength = Convert.ToInt32(Console.ReadLine());
+
 array = new int[arrayLength];
 
-for (int i = 0; i < arrayLength; i++)
+int minRandomElement = 0;
+int maxRandomElement = 100;
+
+Console.Write("Элементы массива: ");
+
+for (int i = 0; i < array.Length; i++)
 {
-    array[i] = rand.Next(0, 100);
+    array[i] = random.Next(minRandomElement, maxRandomElement);
     Console.Write(array[i] + " ");
 }
 
-Console.WriteLine();
+Console.Write("\nЛокальные максимумы: ");
 
-for (int i = 0; i < arrayLength; i++)
+for (int i = 0; i < array.Length; i++)
 {
     if (i == 0)
     {
@@ -22,7 +29,7 @@ for (int i = 0; i < arrayLength; i++)
             Console.Write(array[i] + " ");
         }
     }
-    else if (i == arrayLength - 1)
+    else if (i == array.Length - 1)
     {
         if (array[i] > array[i - 1])
         {
