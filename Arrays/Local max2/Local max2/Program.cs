@@ -23,7 +23,7 @@ Console.Write("\nЛокальные максимумы: ");
 int firstArrayIndex = 0;
 int lastArrayIndex = array.Length - 1;
 
-if (array[firstArrayIndex] > array[firstArrayIndex])
+if (array[firstArrayIndex] > array[firstArrayIndex + 1])
 {
     Console.Write(array[firstArrayIndex] + " ");
 }
