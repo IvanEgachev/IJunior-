@@ -20,27 +20,23 @@ for (int i = 0; i < array.Length; i++)
 
 Console.Write("\nЛокальные максимумы: ");
 
-for (int i = 0; i < array.Length; i++)
+int firstArrayIndex = 0;
+int lastArrayIndex = array.Length - 1;
+
+if (array[firstArrayIndex] > array[firstArrayIndex])
 {
-    if (i == 0)
+    Console.Write(array[firstArrayIndex] + " ");
+}
+
+for (int i = firstArrayIndex + 1; i < lastArrayIndex; i++)
+{
+    if (array[i] > array[i + 1] && array[i] > array[i - 1])
     {
-        if (array[i] > array[i+1])
-        {
             Console.Write(array[i] + " ");
-        }
     }
-    else if (i == array.Length - 1)
-    {
-        if (array[i] > array[i - 1])
-        {
-            Console.Write(array[i] + " ");
-        }
-    }
-    else
-    {
-        if (array[i] > array[i + 1] && array[i] > array[i - 1])
-        {
-            Console.Write(array[i] + " ");
-        }
-    }
+}
+
+if (array[lastArrayIndex] > array[lastArrayIndex-1])
+{
+    Console.Write(array[lastArrayIndex] + " ");
 }
