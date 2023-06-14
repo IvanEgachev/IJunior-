@@ -40,7 +40,6 @@ while (!isExit)
 
             break;
 
-            Console.ReadKey();
             Console.Clear();
     }
 }
