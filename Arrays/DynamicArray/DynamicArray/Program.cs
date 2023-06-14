@@ -39,7 +39,5 @@ while (!isExit)
             }        
 
             break;
-
-            Console.Clear();
     }
 }
