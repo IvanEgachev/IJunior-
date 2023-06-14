@@ -8,7 +8,7 @@ int maxSubArrayLength = 0;
 int subarrayNumber = 0;
 
 int minArrayNumber = 0;
-int maxArrayNumber = 9;
+int maxArrayNumber = 5;
 
 Console.Write("Введите размерность массива ");
 
@@ -25,6 +25,7 @@ if (int.TryParse(Console.ReadLine(), out arrayLength))
     if (array.Length != 0)
 	{
 		subArrayLength = 1;
+        maxSubArrayLength = subArrayLength;
         subarrayNumber = array[0];
 	}
 
