@@ -1,20 +1,31 @@
-﻿int[] array = new int[0];
+﻿int[] numbers = new int[0];
+int numbersSum = 0;
 
 string userInput;
 bool isExit = false;
 
-while (!isExit)
+const string sumCommand = "sum";
+const string exitCommand = "exit";
+
+while (isExit == false)
 {
-    Console.Write("Введите число или команду: ");
+    Console.Write("Введите число или команду (sum - сумма введенных чисел, exit - выход из программы): ");
     userInput = Console.ReadLine();
 
     switch (userInput)
     {
-        case "sum":
-            Console.WriteLine(array.Sum());
+        case sumCommand:
+            numbersSum = 0;
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbersSum += numbers[i];
+            }
+              
+            Console.WriteLine(numbersSum);
             break;
 
-        case "exit":
+        case exitCommand:
             isExit = true;
             break;
 
@@ -23,21 +34,20 @@ while (!isExit)
 
             if (int.TryParse(userInput, out tempInputNumber))
             {
-                int[] tempArray = new int[array.Length + 1];
+                int[] tempnumbers = new int[numbers.Length + 1];
 
-                for (int i = 0; i < array.Length; i++)
+                for (int i = 0; i < numbers.Length; i++)
                 {
-                    tempArray[i] = array[i];
+                    tempnumbers[i] = numbers[i];
                 }
 
-                array = tempArray;
-                array[array.Length - 1] = tempInputNumber;
+                numbers = tempnumbers;
+                numbers[numbers.Length - 1] = tempInputNumber;
             }
             else
             {
                 Console.WriteLine("Введено некорректоное значение");
             }        
-
             break;
     }
 }
