@@ -1,40 +1,40 @@
 ﻿Random random = new Random();
 
-int[] array;
+int[] numbers;
 int arrayLength;
 
 int minArrayNumber = 0;
 int maxArrayNumber = 100;
 
-Console.Write("Введите размерность массива (размерность >= 10): ");
+Console.Write("Введите размерность массива: ");
 arrayLength = Convert.ToInt32(Console.ReadLine());
 
-array = new int[arrayLength];
+numbers = new int[arrayLength];
 
 Console.WriteLine("Изначальный вид массива:");
 
-for (int i = 0; i < array.Length; i++)
+for (int i = 0; i < numbers.Length; i++)
 {
-    array[i] = random.Next(minArrayNumber, maxArrayNumber);
-    Console.Write(array[i]+ " ");
+    numbers[i] = random.Next(minArrayNumber, maxArrayNumber);
+    Console.Write(numbers[i]+ " ");
 }
 
-for (int i = 1; i < array.Length; i++)
+for (int i = 1; i < numbers.Length; i++)
 {
     for (int j = i; j > 0 ; j--)
     {
-        if (array[j] < array[j-1])
+        if (numbers[j] < numbers[j-1])
         {
-            int tempVariable = array[j];
-            array[j] = array[j-1];
-            array[j-1] = tempVariable;
+            int tempVariable = numbers[j];
+            numbers[j] = numbers[j-1];
+            numbers[j-1] = tempVariable;
         }
     }
 }
 
 Console.WriteLine("\nОтсортированный массив:");
 
-for (int i = 0; i < array.Length; i++)
+for (int i = 0; i < numbers.Length; i++)
 {
-    Console.Write(array[i] + " ");
+    Console.Write(numbers[i] + " ");
 }
