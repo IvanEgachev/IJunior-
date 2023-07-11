@@ -46,7 +46,7 @@ while (isExit == false)
             }
             else
             {
-                Console.WriteLine("Введено некорректоное значение");
+                Console.WriteLine("Некорректный ввод");
             }        
             break;
     }
