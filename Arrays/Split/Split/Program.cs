@@ -1,7 +1,8 @@
 ﻿Console.WriteLine("Введите текст: ");
 string text = Console.ReadLine();
 
-string[] wordArray = text.Split(' ');
+char delimiter = ' ';
+string[] wordArray = text.Split(delimiter);
 
 foreach (var word in wordArray)
 {
