@@ -3,7 +3,7 @@
             int[] array;
             int arrayLength;
                    
-            int inputShift;
+            int userInputShift;
             int shift;
 
             int minArrayNumber = 0;
@@ -22,10 +22,10 @@
                   Console.Write(array[i] + " ");
             }
 
-            Console.Write("\nНасколько позиций сдвинуть массив влево: ");
-            inputShift = Convert.ToInt32(Console.ReadLine());
+            Console.Write("\nНа сколько позиций сдвинуть массив влево: ");
+            userInputShift = Convert.ToInt32(Console.ReadLine());
 
-            shift = inputShift % array.Length;
+            shift = userInputShift % array.Length;
 
             int tempNumber;
 
