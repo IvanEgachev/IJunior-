@@ -2,7 +2,6 @@
 const string ExitCommand = "exit";
 
 int[] numbers = new int[0];
-int numbersSum = 0;
 
 string userInput;
 bool isExit = false;
@@ -15,7 +14,7 @@ while (isExit == false)
     switch (userInput)
     {
         case SumCommand:
-            numbersSum = 0;
+            int numbersSum = 0;
 
             for (int i = 0; i < numbers.Length; i++)
             {
