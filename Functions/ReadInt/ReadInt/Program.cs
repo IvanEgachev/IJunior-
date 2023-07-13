@@ -1,10 +1,13 @@
-﻿static int ReadInt()
+﻿int number = ReadInt();
+Console.WriteLine("Полученное число:" + number);
+
+static int ReadInt()
 {
     int number;
 
     while (true)
     {
-        Console.WriteLine("Введите число: ");
+        Console.Write("Введите число: ");
 
         if (int.TryParse(Console.ReadLine(), out number))
         {
@@ -12,11 +15,11 @@
         }
         else
         {
-            Console.WriteLine("Это не число");
+            Console.Write("Это не число!");
+
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }
 
-int number = ReadInt();
-
-Console.WriteLine(number);
