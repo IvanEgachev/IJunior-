@@ -19,7 +19,7 @@ else
     Console.Write($"Ошибка! Указанное значение за пределами диапазона (от {barMinValue} до {barMaxValue})");
 }
 
-static void CreateProgressBar(int inputProgress, int cursorPositionX, int cursorPositionY, int barMinValue, int barMaxValue)
+static void CreateProgressBar(int progress, int cursorPositionX, int cursorPositionY, int barMinValue, int barMaxValue)
 {
     char fillElement = '█';
     char emptyElement = '▒';
@@ -27,15 +27,15 @@ static void CreateProgressBar(int inputProgress, int cursorPositionX, int cursor
     int barLength = barMaxValue - barMinValue;
 
     int hundredthOfNumber = 100;
-    float progressPercentage = (float)inputProgress / hundredthOfNumber;
+    float progressPercentage = (float)progress / hundredthOfNumber;
 
     float filledBarLength = barLength * progressPercentage;
-    int emptyBarLength = (barLength - (int)filledBarLength);
+    int emptyBarLength = barLength - (int)filledBarLength;
 
     Console.ForegroundColor = ConsoleColor.Red;
     Console.SetCursorPosition(cursorPositionX, cursorPositionY);
 
-    string progressBar = string.Format(inputProgress + "% "+ new string(fillElement, (int)filledBarLength) 
+    string progressBar = string.Format(progress + "% "+ new string(fillElement, (int)filledBarLength) 
         + new string(emptyElement, emptyBarLength));
 
     Console.WriteLine("Прогресс: " + progressBar);
