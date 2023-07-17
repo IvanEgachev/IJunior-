@@ -149,7 +149,6 @@
             {
                 PrintDossier(fullNameArray[index], jobTittleArray[index], index);
             }
-
         }
 
         Console.WriteLine("Нажмите любую клавишу, чтобы продолжить");
@@ -161,11 +160,11 @@
         int []indices = new int[0];
         string surchedSurname;
 
-        char replited = ' ';
+        char delimiter = ' ';
 
         for (int i = 0; i < fullName.Length; i++)
         {
-            surchedSurname = fullName[i].Split(replited)[0];
+            surchedSurname = fullName[i].Split(delimiter)[0];
 
             if (surchedSurname == surname)
             {
