@@ -1,25 +1,33 @@
-﻿int number = ReadInt();
-Console.WriteLine("Полученное число:" + number);
-
-static int ReadInt()
+﻿internal partial class Program
 {
-    int number;
-
-    while (true)
+    private static void Main(string[] args)
     {
-        Console.Write("Введите число: ");
+        int number = ReadInt();
+        Console.WriteLine("Полученное число:" + number);
+    }
 
-        if (int.TryParse(Console.ReadLine(), out number))
-        {
-            return number;
-        }
-        else
-        {
-            Console.Write("Это не число!");
+    static int ReadInt()
+    {
+        int number = int.MinValue;
+        bool notNumber = true;
 
-            Console.ReadKey();
-            Console.Clear();
+        while (notNumber)
+        {
+            Console.Write("Введите число: ");
+
+            if (int.TryParse(Console.ReadLine(), out number))
+            {
+                notNumber = false;
+            }
+            else
+            {
+                Console.Write("Это не число!");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
+
+        return number;
     }
 }
 
