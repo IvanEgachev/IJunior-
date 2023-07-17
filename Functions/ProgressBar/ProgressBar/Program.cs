@@ -1,36 +1,44 @@
-﻿int cursorTopPosition; 
-int cursorLeftPosition;
-
-Console.Write("Укажите на какой строке расположить бар: ");
-cursorTopPosition = Convert.ToInt32(Console.ReadLine());
+﻿Console.Write("Укажите на какой строке расположить бар: ");
+int cursorPositionY = Convert.ToInt32(Console.ReadLine());
 
 Console.Write("Укажите отступ от начала строки: ");
-cursorLeftPosition = Convert.ToInt32(Console.ReadLine());
+int cursorPositionX = Convert.ToInt32(Console.ReadLine());
 
-Console.Write("Укажите процент заполненности бара (от 0 до 100): ");
+int barMinValue = 0;
+int barMaxValue = 100;
+
+Console.Write($"Укажите процент заполненности бара (от {barMinValue} до {barMaxValue}): ");
 int inputProgress = Convert.ToInt32(Console.ReadLine());
 
-Progressbar(inputProgress, cursorLeftPosition, cursorTopPosition);
-
-static void Progressbar(int inputProgress, int cursorLeftPosition, int cursorTopPosition)
+if (inputProgress >= barMinValue && inputProgress <= barMaxValue)
 {
-    char blackBlock = '█';
-    char ligthBlock = '▒';
+    CreateProgressBar(inputProgress, cursorPositionX, cursorPositionY, barMinValue, barMaxValue);
+}
+else
+{
+    Console.Write($"Ошибка! Указанное значение за пределами диапазона (от {barMinValue} до {barMaxValue})");
+}
 
-    int progressBarLength = 100;
+static void CreateProgressBar(int inputProgress, int cursorPositionX, int cursorPositionY, int barMinValue, int barMaxValue)
+{
+    char fillElement = '█';
+    char emptyElement = '▒';
 
-    float progressPercentage = (float)inputProgress / 100;
-    float inputProgressLength = progressBarLength * progressPercentage;
+    int barLength = barMaxValue - barMinValue;
 
-    int progressBarOutputLength = (progressBarLength - (int)inputProgressLength);
+    int hundredthOfNumber = 100;
+    float progressPercentage = (float)inputProgress / hundredthOfNumber;
+
+    float filledBarLength = barLength * progressPercentage;
+    int emptyBarLength = (barLength - (int)filledBarLength);
 
     Console.ForegroundColor = ConsoleColor.Red;
-    Console.SetCursorPosition(cursorLeftPosition, cursorTopPosition);
+    Console.SetCursorPosition(cursorPositionX, cursorPositionY);
 
-    string progressBarOutput = string.Format(inputProgress + "% "+ new string(blackBlock, (int)inputProgressLength) 
-        + new string(ligthBlock, progressBarOutputLength));
+    string progressBar = string.Format(inputProgress + "% "+ new string(fillElement, (int)filledBarLength) 
+        + new string(emptyElement, emptyBarLength));
 
-    Console.WriteLine("Прогресс: " + progressBarOutput);
+    Console.WriteLine("Прогресс: " + progressBar);
 
     Console.ForegroundColor = ConsoleColor.White;
     Console.BackgroundColor = ConsoleColor.Black;
