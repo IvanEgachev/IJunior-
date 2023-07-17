@@ -1,87 +1,45 @@
-﻿using System.Xml;
-
-internal partial class Program
+﻿internal partial class Program
 {
-    const string AddCommand = "add";
-    const string PrintCommand = "print";
-    const string DeleteCommand = "delete";
-    const string ExitCommand = "exit";
-    const string SearchCommand = "search";
-
     private static void Main(string[] args)
     {
+        const string AddEmployeeCommand = "add";
+        const string PrintDossierCommand = "print";
+        const string DeleteEmployeeCommand = "delete";
+        const string ExitCommand = "exit";
+        const string SearchEmployeeCommand = "search";
+
         string[] fullNameArray = new string[0];
         string[] jobTittleArray = new string[0]; ;
 
         string command;
 
-        bool isExit = false;
+        bool isWorking = true;
        
-        while (isExit == false)
+        while (isWorking)
         {
-            Console.Write($"Введите одну из доступных команд ({AddCommand}, {PrintCommand}, {DeleteCommand}, {SearchCommand}, {ExitCommand}): ");
+            Console.Write($"Введите одну из доступных команд ({AddEmployeeCommand}, {PrintDossierCommand}, {DeleteEmployeeCommand}, {SearchEmployeeCommand}, {ExitCommand}): ");
             command = Console.ReadLine();
 
             switch (command)
             {
-                case AddCommand:
-                    string fullName, jobTitle;
-
-                    EnterEmployeeData(out fullName, out jobTitle);
-
-                    Add(ref fullNameArray, fullName);
-                    Add(ref jobTittleArray, jobTitle);
+                case AddEmployeeCommand:
+                    AddEmployee(ref fullNameArray, ref jobTittleArray);
                     break;
 
-                case PrintCommand:
-                    int listLength = fullNameArray.Length;
-
-                    if (listLength > 0)
-                    {
-                        for (int i = 0; i < fullNameArray.Length; i++)
-                        {
-                            PrintDossier(fullNameArray[i], jobTittleArray[i], i);
-                        }
-                    }
-                    else
-                    {
-                        Console.Write("Список пуст");
-                    }
-
-                    Console.WriteLine("Нажмите любую клавишу, чтобы продолжить");
-                    Console.ReadKey();
+                case PrintDossierCommand:
+                    PrintAllDossier(fullNameArray, jobTittleArray);
                     break;
 
-                case DeleteCommand:
-                    Console.WriteLine("Удалить досье сотрудника под номером: ");
-
-                    int indexToDelete = Convert.ToInt32(Console.ReadLine());
-                    
-                    if (indexToDelete > 0 && indexToDelete <= fullNameArray.Length)
-                    {
-                        Delete(ref fullNameArray, indexToDelete);
-                        Delete(ref jobTittleArray, indexToDelete);
-                    }
-
+                case DeleteEmployeeCommand:
+                    DeleteEmployee(ref fullNameArray, ref jobTittleArray);
                     break;
 
-                case SearchCommand:
-                    Console.WriteLine("Укажите фамилию: ");
-                    string surnameToSearch = Console.ReadLine();
-
-                    int indexSearch = Search(fullNameArray, surnameToSearch);
-
-                    if (indexSearch != -1)
-                    {
-                        PrintDossier(fullNameArray[indexSearch], jobTittleArray[indexSearch], indexSearch);
-                    }
-
-                    Console.WriteLine("Нажмите любую клавишу, чтобы продолжить");
-                    Console.ReadKey();
+                case SearchEmployeeCommand:
+                    SearchAllEmployees(fullNameArray, jobTittleArray);
                     break;
 
                 case ExitCommand:
-                    isExit = true;
+                    isWorking = false;
                     break;
 
                 default:
@@ -93,18 +51,72 @@ internal partial class Program
             Console.Clear();
         }
     }
+    static void AddEmployee(ref string[] fullNameArray, ref string[] jobTittleArray)
+    {
+        string fullName, jobTitle;
 
+        EnterEmployeeData(out fullName, out jobTitle);
+
+        Add(ref fullNameArray, ref fullName);
+        Add(ref jobTittleArray, ref jobTitle);
+    }
     static void EnterEmployeeData(out string fullName, out string jobTitle)
     {
-        Console.WriteLine("Введите ФИО:");
+        Console.WriteLine("Введите ФИО :");
         fullName = Console.ReadLine();
 
-        Console.WriteLine("Введите должность:");
+        Console.WriteLine("Введите должность: ");
         jobTitle = Console.ReadLine();
+    }
+
+    static void Add( ref string[] array, ref string value)
+    {
+        string[] tempArray = new string[array.Length + 1];
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            tempArray[i] = array[i];
+        }
+
+        tempArray[tempArray.Length - 1] = value;
+        array = tempArray;
+    }
+
+    static void PrintAllDossier(string[] fullNameArray, string[] jobTittleArray)
+    {
+        int listLength = fullNameArray.Length;
+
+        if (listLength > 0)
+        {
+            for (int i = 0; i < listLength; i++)
+            {
+                PrintDossier(fullNameArray[i], jobTittleArray[i], i);
+            }
+        }
+        else
+        {
+            Console.Write("Список пуст");
+        }
+
+        Console.WriteLine("Нажмите любую клавишу, чтобы продолжить");
+        Console.ReadKey();
     }
     static void PrintDossier(string fullName, string jobTittle, int index)
     {
         Console.WriteLine($"{index + 1}. {fullName} - {jobTittle}");
+    }
+
+    static void DeleteEmployee(ref string[] fullNameArray, ref string[] jobTittleArray)
+    {
+        Console.WriteLine("Удалить досье сотрудника под номером: ");
+
+        int indexToDelete = Convert.ToInt32(Console.ReadLine());
+
+        if (indexToDelete > 0 && indexToDelete <= fullNameArray.Length)
+        {
+            Delete(ref fullNameArray, indexToDelete);
+            Delete(ref jobTittleArray, indexToDelete);
+        }
     }
 
     static void Delete(ref string[] array, int index)
@@ -124,36 +136,57 @@ internal partial class Program
         array = tempArray;
     }
 
-    static int Search(string[] fullName, string surname) 
+    static void SearchAllEmployees(string[] fullNameArray, string[] jobTittleArray)
     {
-        int indices = -1;
+        Console.WriteLine("Укажите фамилию: ");
+        string surnameToSearch = Console.ReadLine();
+
+        int[] indexSearch = Search(fullNameArray, surnameToSearch);
+
+        if (indexSearch.Length > 0)
+        {
+            foreach (var index in indexSearch)
+            {
+                PrintDossier(fullNameArray[index], jobTittleArray[index], index);
+            }
+
+        }
+
+        Console.WriteLine("Нажмите любую клавишу, чтобы продолжить");
+        Console.ReadKey();
+    }
+
+    static int[] Search(string[] fullName, string surname) 
+    {
+        int []indices = new int[0];
         string surchedSurname;
+
+        char replited = ' ';
 
         for (int i = 0; i < fullName.Length; i++)
         {
-            surchedSurname = fullName[i].Split(' ')[0];
+            surchedSurname = fullName[i].Split(replited)[0];
 
             if (surchedSurname == surname)
             {
-                indices = i;
-                break;
+                indices = AddToArray(indices, i);
             }
         }
 
         return indices;
     }
 
-    static void Add(ref string[] array, string value)
+    static int[] AddToArray(int[] array, int index)
     {
-        string[] tempArray = new string[array.Length + 1];
+        int[] tempNumbers = new int[array.Length + 1];
 
         for (int i = 0; i < array.Length; i++)
         {
-            tempArray[i] = array[i];
+            tempNumbers[i] = array[i];
         }
 
-        tempArray[tempArray.Length - 1] = value;
-        array = tempArray;
+        tempNumbers[tempNumbers.Length - 1] = index;
+        return tempNumbers;
     }
 }
 
