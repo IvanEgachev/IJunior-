@@ -1,5 +1,6 @@
 ﻿internal partial class Program
 {
+
     private static void Main(string[] args)
     {
         const string AddEmployeeCommand = "add";
@@ -12,7 +13,6 @@
         string[] jobTittleArray = new string[0]; ;
 
         string command;
-
         bool isWorking = true;
        
         while (isWorking)
@@ -51,15 +51,18 @@
             Console.Clear();
         }
     }
+
     static void AddEmployee(ref string[] fullNameArray, ref string[] jobTittleArray)
     {
-        string fullName, jobTitle;
+        string fullName;
+        string jobTitle;
 
         EnterEmployeeData(out fullName, out jobTitle);
 
-        Add(ref fullNameArray, ref fullName);
-        Add(ref jobTittleArray, ref jobTitle);
+        AddRecord(ref fullNameArray, fullName);
+        AddRecord(ref jobTittleArray, jobTitle);
     }
+
     static void EnterEmployeeData(out string fullName, out string jobTitle)
     {
         Console.WriteLine("Введите ФИО :");
@@ -69,7 +72,7 @@
         jobTitle = Console.ReadLine();
     }
 
-    static void Add( ref string[] array, ref string value)
+    static void AddRecord( ref string[] array, string value)
     {
         string[] tempArray = new string[array.Length + 1];
 
@@ -84,11 +87,9 @@
 
     static void PrintAllDossier(string[] fullNameArray, string[] jobTittleArray)
     {
-        int listLength = fullNameArray.Length;
-
-        if (listLength > 0)
+        if (fullNameArray.Length > 0)
         {
-            for (int i = 0; i < listLength; i++)
+            for (int i = 0; i < fullNameArray.Length; i++)
             {
                 PrintDossier(fullNameArray[i], jobTittleArray[i], i);
             }
@@ -101,6 +102,7 @@
         Console.WriteLine("Нажмите любую клавишу, чтобы продолжить");
         Console.ReadKey();
     }
+
     static void PrintDossier(string fullName, string jobTittle, int index)
     {
         Console.WriteLine($"{index + 1}. {fullName} - {jobTittle}");
@@ -114,16 +116,16 @@
 
         if (indexToDelete > 0 && indexToDelete <= fullNameArray.Length)
         {
-            Delete(ref fullNameArray, indexToDelete);
-            Delete(ref jobTittleArray, indexToDelete);
+            DeleteRecord(ref fullNameArray, indexToDelete);
+            DeleteRecord(ref jobTittleArray, indexToDelete);
         }
     }
 
-    static void Delete(ref string[] array, int index)
+    static void DeleteRecord(ref string[] array, int index)
     {
         string[] tempArray = new string[array.Length - 1];
 
-        for (int i = index; i < array.Length - 1; i++)
+        for (int i = index - 1; i < tempArray.Length; i++)
         {
             array[i] = array[i + 1];
         }
@@ -141,7 +143,7 @@
         Console.WriteLine("Укажите фамилию: ");
         string surnameToSearch = Console.ReadLine();
 
-        int[] indexSearch = Search(fullNameArray, surnameToSearch);
+        int[] indexSearch = SearchRecord(fullNameArray, surnameToSearch);
 
         if (indexSearch.Length > 0)
         {
@@ -155,7 +157,7 @@
         Console.ReadKey();
     }
 
-    static int[] Search(string[] fullName, string surname) 
+    static int[] SearchRecord(string[] fullName, string surname) 
     {
         int []indices = new int[0];
         string surchedSurname;
