@@ -12,22 +12,22 @@ int inputProgress = Convert.ToInt32(Console.ReadLine());
 
 if (inputProgress >= barMinValue && inputProgress <= barMaxValue)
 {
-    CreateProgressBar(inputProgress, cursorPositionX, cursorPositionY, barMinValue, barMaxValue);
+    CreateAndOutputProgressBar(inputProgress, cursorPositionX, cursorPositionY, barMinValue, barMaxValue);
 }
 else
 {
     Console.Write($"Ошибка! Указанное значение за пределами диапазона (от {barMinValue} до {barMaxValue})");
 }
 
-static void CreateProgressBar(int progress, int cursorPositionX, int cursorPositionY, int barMinValue, int barMaxValue)
+static void CreateAndOutputProgressBar(int progress, int cursorPositionX, int cursorPositionY, int barMinValue, int barMaxValue)
 {
     char fillElement = '█';
     char emptyElement = '▒';
 
     int barLength = barMaxValue - barMinValue;
 
-    int hundredthOfNumber = 100;
-    float progressPercentage = (float)progress / hundredthOfNumber;
+    int maxPercentage = 100;
+    float progressPercentage = (float)progress / maxPercentage;
 
     float filledBarLength = barLength * progressPercentage;
     int emptyBarLength = barLength - (int)filledBarLength;
