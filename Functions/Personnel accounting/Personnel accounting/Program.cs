@@ -1,4 +1,6 @@
-﻿internal partial class Program
+﻿using System;
+
+internal partial class Program
 {
 
     private static void Main(string[] args)
@@ -9,8 +11,8 @@
         const string ExitCommand = "exit";
         const string SearchEmployeeCommand = "search";
 
-        string[] fullNameArray = new string[0];
-        string[] jobTittleArray = new string[0]; ;
+        string[] fullNames = new string[0];
+        string[] posts = new string[0]; ;
 
         string command;
         bool isWorking = true;
@@ -23,19 +25,19 @@
             switch (command)
             {
                 case AddEmployeeCommand:
-                    AddEmployee(ref fullNameArray, ref jobTittleArray);
+                    AddEmployee(ref fullNames, ref posts);
                     break;
 
                 case PrintDossierCommand:
-                    PrintAllDossier(fullNameArray, jobTittleArray);
+                    PrintAllDossier(fullNames, posts);
                     break;
 
                 case DeleteEmployeeCommand:
-                    DeleteEmployee(ref fullNameArray, ref jobTittleArray);
+                    DeleteEmployee(ref fullNames, ref posts);
                     break;
 
                 case SearchEmployeeCommand:
-                    SearchAllEmployees(fullNameArray, jobTittleArray);
+                    SearchAllEmployees(fullNames, posts);
                     break;
 
                 case ExitCommand:
@@ -52,27 +54,27 @@
         }
     }
 
-    static void AddEmployee(ref string[] fullNameArray, ref string[] jobTittleArray)
+    static void AddEmployee(ref string[] fullNames, ref string[] posts)
     {
         string fullName;
-        string jobTitle;
+        string post;
 
-        EnterEmployeeData(out fullName, out jobTitle);
+        EnterEmployeeData(out fullName, out post);
 
-        AddRecord(ref fullNameArray, fullName);
-        AddRecord(ref jobTittleArray, jobTitle);
+        fullNames = AddRecord(fullNames, fullName);
+        posts = AddRecord(posts, post);
     }
 
-    static void EnterEmployeeData(out string fullName, out string jobTitle)
+    static void EnterEmployeeData(out string fullName, out string post)
     {
         Console.WriteLine("Введите ФИО :");
         fullName = Console.ReadLine();
 
         Console.WriteLine("Введите должность: ");
-        jobTitle = Console.ReadLine();
+        post = Console.ReadLine();
     }
 
-    static void AddRecord( ref string[] array, string value)
+    static string[] AddRecord(string[] array, string value)
     {
         string[] tempArray = new string[array.Length + 1];
 
@@ -82,46 +84,47 @@
         }
 
         tempArray[tempArray.Length - 1] = value;
-        array = tempArray;
+        
+        return tempArray;
     }
 
-    static void PrintAllDossier(string[] fullNameArray, string[] jobTittleArray)
+    static void PrintAllDossier(string[] fullNames, string[] posts)
     {
-        if (fullNameArray.Length > 0)
+        if (fullNames.Length > 0)
         {
-            for (int i = 0; i < fullNameArray.Length; i++)
+            for (int i = 0; i < fullNames.Length; i++)
             {
-                PrintDossier(fullNameArray[i], jobTittleArray[i], i);
+                PrintDossier(fullNames[i], posts[i], i);
             }
         }
         else
         {
-            Console.Write("Список пуст");
+            Console.WriteLine("Список пуст ");
         }
 
         Console.WriteLine("Нажмите любую клавишу, чтобы продолжить");
         Console.ReadKey();
     }
 
-    static void PrintDossier(string fullName, string jobTittle, int index)
+    static void PrintDossier(string fullName, string post, int index)
     {
-        Console.WriteLine($"{index + 1}. {fullName} - {jobTittle}");
+        Console.WriteLine($"{index + 1}. {fullName} - {post}");
     }
 
-    static void DeleteEmployee(ref string[] fullNameArray, ref string[] jobTittleArray)
+    static void DeleteEmployee(ref string[] fullNames, ref string[] posts)
     {
         Console.WriteLine("Удалить досье сотрудника под номером: ");
 
         int indexToDelete = Convert.ToInt32(Console.ReadLine());
 
-        if (indexToDelete > 0 && indexToDelete <= fullNameArray.Length)
+        if (indexToDelete > 0 && indexToDelete <= fullNames.Length)
         {
-            DeleteRecord(ref fullNameArray, indexToDelete);
-            DeleteRecord(ref jobTittleArray, indexToDelete);
+            fullNames = DeleteRecord(fullNames, indexToDelete);
+            posts = DeleteRecord(posts, indexToDelete);
         }
     }
 
-    static void DeleteRecord(ref string[] array, int index)
+    static string[] DeleteRecord(string[] array, int index)
     {
         string[] tempArray = new string[array.Length - 1];
 
@@ -135,59 +138,28 @@
             tempArray[i] = array[i];
         }
 
-        array = tempArray;
+        return tempArray;
     }
 
-    static void SearchAllEmployees(string[] fullNameArray, string[] jobTittleArray)
+    static void SearchAllEmployees(string[] fullNames, string[] posts)
     {
         Console.WriteLine("Укажите фамилию: ");
         string surnameToSearch = Console.ReadLine();
+        string serchedSurname;
+        char delimiter = ' ';
 
-        int[] indexSearch = SearchRecord(fullNameArray, surnameToSearch);
-
-        if (indexSearch.Length > 0)
+        for (int i = 0; i < fullNames.Length; i++)
         {
-            foreach (var index in indexSearch)
+            serchedSurname = fullNames[i].Split(delimiter)[0];
+
+            if (serchedSurname == surnameToSearch)
             {
-                PrintDossier(fullNameArray[index], jobTittleArray[index], index);
+                PrintDossier(fullNames[i], posts[i], i);
             }
         }
 
         Console.WriteLine("Нажмите любую клавишу, чтобы продолжить");
         Console.ReadKey();
-    }
-
-    static int[] SearchRecord(string[] fullName, string surname) 
-    {
-        int []indices = new int[0];
-        string surchedSurname;
-
-        char delimiter = ' ';
-
-        for (int i = 0; i < fullName.Length; i++)
-        {
-            surchedSurname = fullName[i].Split(delimiter)[0];
-
-            if (surchedSurname == surname)
-            {
-                indices = AddToArray(indices, i);
-            }
-        }
-
-        return indices;
-    }
-
-    static int[] AddToArray(int[] array, int index)
-    {
-        int[] tempNumbers = new int[array.Length + 1];
-
-        for (int i = 0; i < array.Length; i++)
-        {
-            tempNumbers[i] = array[i];
-        }
-
-        tempNumbers[tempNumbers.Length - 1] = index;
-        return tempNumbers;
     }
 }
 
