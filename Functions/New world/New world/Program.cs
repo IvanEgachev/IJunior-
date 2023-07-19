@@ -39,7 +39,7 @@
         int playerShiftY;
 
         int coinsOnMapCount = GetItemsCount(map, coin);
-        int collectedcoinCount = 0;
+        int collectedCoinCount = 0;
 
         DrawMap(map);
         GetItemPosition(map, out playerX, out playerY, player);
