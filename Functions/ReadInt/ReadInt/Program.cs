@@ -8,26 +8,15 @@
 
     static int ReadInt()
     {
-        int number = int.MinValue;
-        bool notNumber = true;
+        int number;
 
-        while (notNumber)
+        Console.WriteLine("Введите число:");
+
+        while (int.TryParse(Console.ReadLine(), out number) == false)
         {
-            Console.Write("Введите число: ");
-
-            if (int.TryParse(Console.ReadLine(), out number))
-            {
-                notNumber = false;
-            }
-            else
-            {
-                Console.Write("Это не число!");
-                Console.ReadKey();
-                Console.Clear();
-            }
+                Console.WriteLine("Это не число!");
         }
 
         return number;
     }
 }
-
