@@ -44,7 +44,7 @@
         DrawMap(map);
         GetItemPosition(map, out playerX, out playerY, player);
 
-        while (delta.TotalSeconds > 0 && collectedcoinCount != coinsOnMapCount)
+        while (delta.TotalSeconds > 0 && collectedCoinCount != coinsOnMapCount)
         {
             if (Console.KeyAvailable)
             {
@@ -81,7 +81,7 @@
 
                     if (map[playerShiftX, playerShiftY] == coin)
                     {
-                        collectedcoinCount++;
+                        collectedCoinCount++;
                         map[playerShiftX, playerShiftY] = cleaner;
                     }
 
@@ -93,7 +93,7 @@
             }
 
             ConsoleOutput("Соберите максимальное количеество монет за указанное время:", 0, 19);
-            ConsoleOutput($"Количество монет: {collectedcoinCount}/{coinsOnMapCount}", 0, 20);
+            ConsoleOutput($"Количество монет: {collectedCoinCount}/{coinsOnMapCount}", 0, 20);
 
             delta = Update(delta, timerEnd);
             ConsoleOutput($"Осталось {delta.Minutes.ToString("00")}:{delta.Seconds.ToString("00")}", 0, 21);
