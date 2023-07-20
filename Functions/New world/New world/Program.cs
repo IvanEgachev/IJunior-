@@ -5,7 +5,7 @@
         Console.CursorVisible = false;
 
         int playTime = 15;
-        DateTime timerEnd = DateTime.Now.AddSeconds(playTime);
+        DateTime endGameTimer = DateTime.Now.AddSeconds(playTime);
         TimeSpan delta = new TimeSpan(0, 0, 0, playTime);
 
         char[,] map = new char[,] { { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -77,7 +77,7 @@
 
                 if (map[playerShiftX, playerShiftY] != block)
                 {
-                    ConsoleOutput(Convert.ToString(cleaner), playerY, playerX);
+                    OutputToConsole(Convert.ToString(cleaner), playerY, playerX);
 
                     if (map[playerShiftX, playerShiftY] == coin)
                     {
@@ -88,18 +88,18 @@
                     playerX += playerDX;
                     playerY += playerDY;
 
-                    ConsoleOutput(player.ToString(), playerY, playerX);
+                    OutputToConsole(player.ToString(), playerY, playerX);
                 }
             }
 
-            ConsoleOutput("Соберите максимальное количеество монет за указанное время:", 0, 19);
-            ConsoleOutput($"Количество монет: {collectedCoinCount}/{coinsOnMapCount}", 0, 20);
+            OutputToConsole("Соберите максимальное количеество монет за указанное время:", 0, 19);
+            OutputToConsole($"Количество монет: {collectedCoinCount}/{coinsOnMapCount}", 0, 20);
 
-            delta = Update(delta, timerEnd);
-            ConsoleOutput($"Осталось {delta.Minutes.ToString("00")}:{delta.Seconds.ToString("00")}", 0, 21);
+            delta = Update(delta, endGameTimer);
+            OutputToConsole($"Осталось {delta.Minutes.ToString("00")}:{delta.Seconds.ToString("00")}", 0, 21);
         }
 
-        ConsoleOutput("Игра окончена!", 0, 22);
+        OutputToConsole("Игра окончена!", 0, 22);
         Console.ReadKey();
     }
 
@@ -152,13 +152,13 @@
         return itemCount;
     }
 
-    static TimeSpan Update(TimeSpan delta, DateTime timerEnd)
+    static TimeSpan Update(TimeSpan delta, DateTime endGameTimer)
     {
-        delta = timerEnd - DateTime.Now;
+        delta = endGameTimer - DateTime.Now;
         return delta;
     }
 
-    static void ConsoleOutput(string message, int positionY, int positionX)
+    static void OutputToConsole(string message, int positionY, int positionX)
     {
         Console.SetCursorPosition(positionY, positionX);
         Console.Write(message);
