@@ -48,29 +48,7 @@
         {
             if (Console.KeyAvailable)
             {
-                ConsoleKeyInfo key = Console.ReadKey(true);
-
-                switch (key.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        playerDX = -1;
-                        playerDY = 0;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        playerDX = 1;
-                        playerDY = 0;
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        playerDX = 0;
-                        playerDY = -1;
-                        break;
-                    case ConsoleKey.RightArrow:
-                        playerDX = 0;
-                        playerDY = 1;
-                        break;
-                    default:
-                        break;
-                }
+                ChangeDirection(ref playerDX, ref playerDY);
 
                 playerShiftX = playerX + playerDX;
                 playerShiftY = playerY + playerDY;
@@ -150,6 +128,32 @@
         }
 
         return itemCount;
+    }
+
+    static void ChangeDirection(ref int playerDX, ref int playerDY )
+    {
+        ConsoleKeyInfo key = Console.ReadKey(true);
+
+        playerDX = 0;
+        playerDY = 0;
+
+        switch (key.Key)
+        {
+            case ConsoleKey.UpArrow:
+                playerDX = -1;
+                break;
+            case ConsoleKey.DownArrow:
+                playerDX = 1;
+                break;
+            case ConsoleKey.LeftArrow:
+                playerDY = -1;
+                break;
+            case ConsoleKey.RightArrow:
+                playerDY = 1;
+                break;
+            default:
+                break;
+        }
     }
 
     static TimeSpan Update(TimeSpan delta, DateTime endGameTimer)
