@@ -33,8 +33,6 @@
             Console.Write(numbers[i]);
         }
     }
-
-   
 }
 
 
