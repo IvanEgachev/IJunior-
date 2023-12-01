@@ -1,12 +1,12 @@
 ﻿Console.Write("Введите количество золота: ");
-int goldCount = Convert.ToInt32(Console.ReadLine());
+int gold = Convert.ToInt32(Console.ReadLine());
 
 int crystalPrice = 17;
-int crystalsCanBuy = goldCount / crystalPrice;
+int availableCrystals = gold / crystalPrice;
 
-Console.Write($"Вы можете купить {crystalsCanBuy} кристаллов(а), какое количество хотите приобрести: ");
-int crystalToBuy = Convert.ToInt32(Console.ReadLine());
+Console.Write($"Вы можете купить {availableCrystals} кристаллов(а), какое количество хотите приобрести: ");
+int crystals = Convert.ToInt32(Console.ReadLine());
 
-int remainder = goldCount - crystalToBuy * crystalPrice;
+int remainder = gold - crystals * crystalPrice;
 
-Console.WriteLine($"Вы приобрели {crystalToBuy} кристаллов. Ваш отстаток - {remainder} золота");
+Console.WriteLine($"Вы приобрели {crystals} кристаллов. Ваш отстаток - {remainder} золота");
