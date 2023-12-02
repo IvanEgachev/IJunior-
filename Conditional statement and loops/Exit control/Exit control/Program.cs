@@ -1,9 +1,9 @@
-const string exitCommand = "exit";
+const string ExitCommand = "exit";
 
 Console.WriteLine("Введите что-нибудь");
 string userInput = ""; 
 
-while(userInput != exitCommand)
+while(userInput != ExitCommand)
     {
         userInput = Console.ReadLine();
     }
