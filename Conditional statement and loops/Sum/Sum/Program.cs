@@ -17,7 +17,6 @@ for (int i = number; i > 0; i--)
         sum += i;
         Console.Write(i+" ");
     }
-   
 }
 
 Console.WriteLine("\nСумма чисел: "+sum);
