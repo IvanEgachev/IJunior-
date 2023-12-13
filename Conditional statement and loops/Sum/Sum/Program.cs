@@ -3,8 +3,8 @@
 int number = random.Next(101);
 Console.WriteLine("Начальное число: "+number);
 
-const int multipleNumber1 = 3;
-const int multipleNumber2 = 5;
+int multipleNumber1 = 3;
+int multipleNumber2 = 5;
 
 int sum = 0;
 
