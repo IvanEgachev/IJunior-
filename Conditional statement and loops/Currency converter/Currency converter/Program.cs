@@ -1,4 +1,7 @@
-﻿const int UsdToRubCommand = 21;
+﻿const int rub = 1;
+const int usd = 2;
+const int cny = 3;
+const int UsdToRubCommand = 21;
 const int RubToUsdCommand = 12;
 const int CnyToRubCommand = 31;
 const int RubToCnyCommand = 13;
@@ -31,10 +34,10 @@ float cnyBalance = Convert.ToSingle(Console.ReadLine());
 
 while (userInput != exitCommand)
 {
-    Console.Write("\nВыберите валюту из которой хотите перевести ( 1. rub, 2. usd, 3. cny)? ");
+    Console.Write($"\nВыберите валюту из которой хотите перевести ( {rub}. rub, {usd}. usd, {cny}. cny)? ");
     convertFrom = Console.ReadLine();
 
-    Console.Write("Выберите валюту в которую хотите перевести (1. rub, 2. usd, 3. cny)? ");
+    Console.Write($"Выберите валюту в которую хотите перевести ({rub}. rub, {usd}. usd, {cny}. cny)? ");
     convertTo = Console.ReadLine();
 
     if (convertFrom == convertTo)
