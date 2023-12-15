@@ -4,8 +4,7 @@ const int CnyToRubCommand = 31;
 const int RubToCnyCommand = 13;
 const int UsdToCnyCommand = 23;
 const int CnyToUsdCommand = 32;
-
-string exitCommand = "y";
+const string exitCommand = "y";
 
 float usdToRub = 69.24f;
 float rubToUsd = 0.014f;
