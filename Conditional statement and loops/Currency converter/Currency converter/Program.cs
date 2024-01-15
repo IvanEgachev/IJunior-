@@ -1,13 +1,14 @@
-﻿const int rub = 1;
-const int usd = 2;
-const int cny = 3;
-const int UsdToRubCommand = 21;
+﻿const int UsdToRubCommand = 21;
 const int RubToUsdCommand = 12;
 const int CnyToRubCommand = 31;
 const int RubToCnyCommand = 13;
 const int UsdToCnyCommand = 23;
 const int CnyToUsdCommand = 32;
-const string exitCommand = "y";
+const string ExitCommand = "y";
+
+int rub = 1;
+int usd = 2;
+int cny = 3;
 
 float usdToRub = 69.24f;
 float rubToUsd = 0.014f;
@@ -23,6 +24,7 @@ string convertFrom = "";
 string convertTo= "";
 string userInput = "";
 
+
 Console.Write("Введите сумму рублей, которая у Вас имеется: ");
 float rubBalance = Convert.ToSingle(Console.ReadLine());
 
@@ -32,7 +34,7 @@ float usdBalance = Convert.ToSingle(Console.ReadLine());
 Console.Write("Введите сумму юаней, которая у Вас имеется: ");
 float cnyBalance = Convert.ToSingle(Console.ReadLine());
 
-while (userInput != exitCommand)
+while (userInput != ExitCommand)
 {
     Console.Write($"\nВыберите валюту из которой хотите перевести ( {rub}. rub, {usd}. usd, {cny}. cny)? ");
     convertFrom = Console.ReadLine();
@@ -138,6 +140,6 @@ while (userInput != exitCommand)
 
     Console.WriteLine($"Баланс ваших валютных счетов: rub {rubBalance}, usd {usdBalance}, cny {cnyBalance}.");
 
-    Console.Write("Чтобы закончить работу программы введите  \"y\" ");
+    Console.Write($"Чтобы закончить работу программы введите  \"{ExitCommand}\" ");
     userInput = Console.ReadLine();
 } 
