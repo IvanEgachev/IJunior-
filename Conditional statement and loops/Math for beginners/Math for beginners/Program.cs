@@ -6,10 +6,10 @@ bool isShutdown  = false;
 
 while(isShutdown == false)
 {
-    const int AddSubstractCommand = 1;
-    const int MultiplicationTableCommand = 2;
-    const int ComparisonCommand = 3;
-    const int ExitCommand =  4;
+    const string AddSubstractCommand = "1";
+    const string MultiplicationTableCommand = "2";
+    const string ComparisonCommand = "3";
+    const string ExitCommand =  "4";
 
     Console.WriteLine("Математика для начинающих. \nГлавное меню.");
 
@@ -27,7 +27,7 @@ while(isShutdown == false)
 
     Console.ForegroundColor = ConsoleColor.White;
 
-    int command =  Convert.ToInt32(Console.ReadLine());
+    string command =  Console.ReadLine();
 
     switch (command)
     {
