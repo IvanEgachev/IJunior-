@@ -1,16 +1,16 @@
 ﻿using System.Drawing;
 
+const string AddSubstractCommand = "1";
+const string MultiplicationTableCommand = "2";
+const string ComparisonCommand = "3";
+const string ExitCommand = "4";
+
 Random random = new Random();
 
-bool isShutdown  = false;
+bool isRunning = true;
 
-while(isShutdown == false)
+while(isRunning == true)
 {
-    const string AddSubstractCommand = "1";
-    const string MultiplicationTableCommand = "2";
-    const string ComparisonCommand = "3";
-    const string ExitCommand =  "4";
-
     Console.WriteLine("Математика для начинающих. \nГлавное меню.");
 
     Console.ForegroundColor = ConsoleColor.Magenta;
@@ -155,7 +155,7 @@ while(isShutdown == false)
             break;
 
         case ExitCommand:
-            isShutdown = true;
+            isRunning = false;
             break;
 
         default:
