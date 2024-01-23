@@ -6,6 +6,7 @@ string password = Console.ReadLine();
 string confirmPassword;
 bool canAccess = false;
 int attempsCount = 3;
+int attempsLeft = attempsCount;
 
 for (int i = attempsCount; i > 0; i--)
 {
@@ -20,7 +21,8 @@ for (int i = attempsCount; i > 0; i--)
     }
     else
     {
-        Console.WriteLine($"Неверный пароль. Осталось попыток {i-1}");
+        attempsLeft--;
+        Console.WriteLine($"Неверный пароль. Осталось попыток {attempsLeft}");
     }
 }
 
