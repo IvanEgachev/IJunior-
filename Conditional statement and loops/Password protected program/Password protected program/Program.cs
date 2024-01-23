@@ -12,7 +12,7 @@ for (int i = attempsCount; i > 0; i--)
     Console.Write("Введите пароль:");
     confirmPassword = Console.ReadLine();
 
-    if (password == (confirmPassword))
+    if (password == confirmPassword)
     {
         Console.WriteLine($"Успешно! Вы получили доступ к секретному сообщению. \n Секретное сообщение: {secretMessage}");
         canAccess = true;
