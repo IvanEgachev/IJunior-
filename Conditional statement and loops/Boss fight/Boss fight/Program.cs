@@ -21,12 +21,12 @@ namespace BossFight
             float userDamageMultiplier = 1.0f;
 
             string spellRainFireName = "Огненный ливень";
-            int spell1Attack = 40;
-            int spell1AccuracyPercent = 75;
+            int spellRainFireAttack = 40;
+            int spellRainFireAccuracyPercent = 75;
 
             string spellSpellIceKissName = "Ледяной поцелуй";
-            int spell2Attack = 30;
-            int spell2AccuracyPercent = 90;
+            int spellIceKissAttack = 30;
+            int spellIceKissAccuracyPercent = 90;
 
             string spellMagicHerbName = "Травки-муравки";
             float healthPointMax = 0.5f;
@@ -35,7 +35,7 @@ namespace BossFight
             int userHealthBoostPercentage = (int)(userHealthBoost * 100);
             float userDamageDowngrade = 0.3f;
             int userDamageDowngradePercentage = (int)(userDamageDowngrade * 100);
-            int useSpell3Times = 3;
+            int useSpellMagicHerbTimes = 3;
 
             string spellSpellSpiritPowerName = "Силы духов";
             float userDamageBoost = 0.5f;
@@ -70,13 +70,13 @@ namespace BossFight
 
                 Console.BackgroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("\nВыберите одну из способностей:");
-                Console.WriteLine($"{SpellRainFire} {spellRainFireName}: наносит {spell1Attack} урона, точность {spell1AccuracyPercent}%, " +
+                Console.WriteLine($"{SpellRainFire} {spellRainFireName}: наносит {spellRainFireAttack} урона, точность {spellRainFireAccuracyPercent}%, " +
                     $"на 1 ход разрушает броню врага");
-                Console.WriteLine($"{SpellIceKiss} {spellSpellIceKissName}: наносит {spell2Attack} урона, точность {spell2AccuracyPercent}%, " +
+                Console.WriteLine($"{SpellIceKiss} {spellSpellIceKissName}: наносит {spellIceKissAttack} урона, точность {spellIceKissAccuracyPercent}%, " +
                     $"при разрушенной броне урон проходит в тело врага");
                 Console.WriteLine($"{SpellMagicHerb} {spellMagicHerbName}: дает дополнитьльные {userHealthBoostPercentage}% жизни от начального урона," +
                     $" но снижает урон на {userDamageDowngradePercentage}%. Можно применить если жизней меньше {healthPointMaxPercentage}%." +
-                    $"Осталось {useSpell3Times}");
+                    $"Осталось {useSpellMagicHerbTimes}");
                 Console.WriteLine($"{SpellSpiritPower} {spellSpellSpiritPowerName}: увеличивает урон на {userDamageBoostPercentage}%, " +
                     $"при этом количество жизней уменьшается на {userHealthDownGradePercentage}%");
 
@@ -100,21 +100,21 @@ namespace BossFight
                 switch (selectedSpell)
                 {
                     case SpellRainFire:
-                        int spell1AttackSpread = Convert.ToInt32(spell1Attack * damageSpread);
+                        int spellRainFireAttackSpread = Convert.ToInt32(spellRainFireAttack * damageSpread);
 
-                        if (userHitPropability <= spell1AccuracyPercent)
+                        if (userHitPropability <= spellRainFireAccuracyPercent)
                         {
                             isUserHit = true;
                         }
 
-                        userAttack = ((spell1Attack + random.Next(-spell1AttackSpread, spell1AttackSpread)) * userDamageMultiplier * Convert.ToInt32(isUserHit));
+                        userAttack = ((spellRainFireAttack + random.Next(-spellRainFireAttackSpread, spellRainFireAttackSpread)) * userDamageMultiplier * Convert.ToInt32(isUserHit));
 
                         break;
 
                     case SpellIceKiss:
-                        int splell2AttackSpread = Convert.ToInt32(spell2Attack * damageSpread);
+                        int spellIceKissAttackSpread = Convert.ToInt32(spellIceKissAttack * damageSpread);
 
-                        if (userHitPropability <= spell2AccuracyPercent)
+                        if (userHitPropability <= spellIceKissAccuracyPercent)
                         {
                             isUserHit = true;
                         }
@@ -124,20 +124,20 @@ namespace BossFight
                             isActiveBossArmor = false;
                         }
 
-                        userAttack = (spell2Attack + random.Next(-splell2AttackSpread, splell2AttackSpread)) * userDamageMultiplier * Convert.ToInt32(isUserHit);
+                        userAttack = (spellIceKissAttack + random.Next(-spellIceKissAttackSpread, spellIceKissAttackSpread)) * userDamageMultiplier * Convert.ToInt32(isUserHit);
 
                         break;
 
                     case SpellMagicHerb:
-                        if (useSpell3Times > 0 && userHealth <= userStartGameHealth * healthPointMax)
+                        if (useSpellMagicHerbTimes > 0 && userHealth <= userStartGameHealth * healthPointMax)
                         {
                             userHealth *= (1 + userHealthBoost);
                             userDamageMultiplier = 1 - userDamageDowngrade;
-                            useSpell3Times--;
+                            useSpellMagicHerbTimes--;
 
                             continue;
                         }
-                        else if (useSpell3Times == 0)
+                        else if (useSpellMagicHerbTimes == 0)
                         {
                             Console.BackgroundColor = ConsoleColor.Red;
                             Console.WriteLine("А всё... Закончилось!");
