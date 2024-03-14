@@ -18,8 +18,8 @@ int spell2AccuracyPercent = 90;
 
 const int Spell3 = 3;
 string spell3Name = "Травки-муравки";
-float useHealthPointLessThan = 0.5f;
-int useHealthPointLessThanPercentage = (int)(useHealthPointLessThan * 100);
+float healthPointMax = 0.5f;
+int healthPointMaxPercentage = (int)(healthPointMax * 100);
 float userHealthBoost = 0.5f;
 int userHealthBoostPercentage =  (int)(userHealthBoost * 100); 
 float userDamageDowngrade = 0.3f;
@@ -30,8 +30,8 @@ const int Spell4 = 4;
 string spell4Name = "Силы духов";
 float userDamageBoost = 0.5f;
 int userDamageBoostPercentage =  (int)(userDamageBoost * 100);   
-float userHealthDownGrade = 0.2f;
-int userHealthDownGradePercentage = (int)(userHealthDownGrade * 100);
+float userHealthDowngrade = 0.2f;
+int userHealthDownGradePercentage = (int)(userHealthDowngrade * 100);
 
 int selectedSpell = 0;
 int previousSpell = 0;
@@ -65,7 +65,7 @@ while (userHealth > 0 && bossHealth > 0)
     Console.WriteLine($"{Spell2} {spell2Name}: наносит {spell2Attack} урона, точность {spell2AccuracyPercent}%, " +
         $"при разрушенной броне урон проходит в тело врага");
     Console.WriteLine($"{Spell3} {spell3Name}: дает дополнитьльные {userHealthBoostPercentage}% жизни от начального урона," +
-        $" но снижает урон на {userDamageDowngradePercentage}%. Можно применить если жизней меньше {useHealthPointLessThanPercentage}%." +
+        $" но снижает урон на {userDamageDowngradePercentage}%. Можно применить если жизней меньше {healthPointMaxPercentage}%." +
         $"Осталось {useSpell3Times}");
     Console.WriteLine($"{Spell4} {spell4Name}: увеличивает урон на {userDamageBoostPercentage}%, " +
         $"при этом количество жизней уменьшается на {userHealthDownGradePercentage}%");
@@ -119,35 +119,39 @@ while (userHealth > 0 && bossHealth > 0)
             break;
 
 		case Spell3:
-            if (useSpell3Times > 0 && userHealth <= userStartGameHealth * useHealthPointLessThan)
+            if (useSpell3Times > 0 && userHealth <= userStartGameHealth * healthPointMax)
             {
                 userHealth *= (1 + userHealthBoost);
-                userDamageMultiplier = 1 - userDamageDowngrade  ;
+                userDamageMultiplier = 1 - userDamageDowngrade;
                 useSpell3Times--;
+
                 continue;
             }
             else if (useSpell3Times == 0)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.WriteLine("А всё... Закончилось!");
-
                 Console.BackgroundColor = ConsoleColor.Black;
+
+                continue;
             }
-            else if (userHealth > userStartGameHealth * useHealthPointLessThan)
+            else if (userHealth > userStartGameHealth * healthPointMax)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.WriteLine("Пока рано");
 
                 Console.BackgroundColor = ConsoleColor.Black;
+
+                continue;
             }
 
 			break;
 
         case Spell4:
-            userHealth *= (1-userHealthDownGrade);
+            userHealth *= (1-userHealthDowngrade);
             userDamageMultiplier = 1 + userDamageBoost;
 
-            break;
+            continue;
 
 		default:
             Console.BackgroundColor = ConsoleColor.Red;
