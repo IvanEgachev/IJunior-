@@ -15,14 +15,15 @@
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 columnMultiple *= matrix[i, column - 1];
+            }
 
-                if (i == line - 1)
-                {
-                    for (int j = 0; j < matrix.GetLength(1); j++)
-                    {
-                        lineSum += matrix[i, j];
-                    }
-                }
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                lineSum += matrix[line - 1, j];
+            }
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
                 
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
