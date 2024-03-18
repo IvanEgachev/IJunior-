@@ -14,17 +14,18 @@
 
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                columnMultiple *= matrix[i, column - 1];
+
+                if (i == line - 1)
                 {
-                    if (j == column - 1)
-                    {
-                        columnMultiple *= matrix[i, j];
-                    }
-                    if (i == line - 1)
+                    for (int j = 0; j < matrix.GetLength(1); j++)
                     {
                         lineSum += matrix[i, j];
                     }
-
+                }
+                
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
                     Console.Write(matrix[i, j] + "\t");
                 }
 
