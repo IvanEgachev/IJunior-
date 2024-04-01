@@ -6,20 +6,20 @@
         {
             int[,] matrix = new int[,] { { 13, 26, 17 }, { 5, 12, 34 }, { 54, 77, 36 }, { 1, 2, 3 } };
 
-            int line = 2;
-            int column = 1;
+            int lineIndex = 2;
+            int columnIndex = 1;
 
             int lineSum = 0;
             int columnMultiple = 1;
 
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                columnMultiple *= matrix[i, column - 1];
+                columnMultiple *= matrix[i, columnIndex - 1];
             }
 
             for (int j = 0; j < matrix.GetLength(1); j++)
             {
-                lineSum += matrix[line - 1, j];
+                lineSum += matrix[lineIndex - 1, j];
             }
 
             for (int i = 0; i < matrix.GetLength(0); i++)
@@ -33,7 +33,7 @@
                 Console.WriteLine();
             }
 
-            Console.WriteLine($"Результат:\n Произведение {column} столбца: {columnMultiple}  \n Сумма {line} строки: {lineSum}");
+            Console.WriteLine($"Результат:\n Произведение {columnIndex} столбца: {columnMultiple}  \n Сумма {lineIndex} строки: {lineSum}");
         }
     }
 }
