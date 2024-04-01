@@ -1,4 +1,4 @@
-﻿namespace MaxElement
+﻿namespace LocalMax
 {
     internal class Program
     {
