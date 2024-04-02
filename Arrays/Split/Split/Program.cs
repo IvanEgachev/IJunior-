@@ -1,10 +1,16 @@
-﻿Console.WriteLine("Введите текст: ");
-string text = Console.ReadLine();
-
-char delimiter = ' ';
-string[] wordArray = text.Split(delimiter);
-
-foreach (var word in wordArray)
+﻿internal class Program
 {
-    Console.WriteLine(word);
+    private static void Main(string[] args)
+    {
+        Console.WriteLine("Введите текст: ");
+        string text = Console.ReadLine();
+
+        char delimiter = ' ';
+        string[] wordArray = text.Split(delimiter);
+
+        foreach (var word in wordArray)
+        {
+            Console.WriteLine(word);
+        }
+    }
 }
