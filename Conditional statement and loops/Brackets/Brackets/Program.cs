@@ -1,40 +1,44 @@
-﻿Console.Write("Введите скобочное выражение :");
-string inputBracketsExpression = Console.ReadLine();
-
-int maxNesting = 0;
-int openBrackets = 0;
-bool isWrongExspression = false;
-
-for (int i = 0; i < inputBracketsExpression.Length; i++)
+﻿internal class Program
 {
-    if (inputBracketsExpression[i] == '(')
+    private static void Main(string[] args)
     {
-        openBrackets++;
-    }
-    else 
-    {
-        openBrackets--;
-    }
+        Console.Write("Введите скобочное выражение :");
+        string inputBracketsExpression = Console.ReadLine();
 
-    if (openBrackets < 0)
-    {
-        isWrongExspression = true;
-        break;
-    }
+        int maxNesting = 0;
+        int openBrackets = 0;
+        bool isWrongExspression = false;
 
-    if (openBrackets > maxNesting)
-    {
-        maxNesting = openBrackets;
+        for (int i = 0; i < inputBracketsExpression.Length; i++)
+        {
+            if (inputBracketsExpression[i] == '(')
+            {
+                openBrackets++;
+            }
+            else
+            {
+                openBrackets--;
+            }
+
+            if (openBrackets < 0)
+            {
+                isWrongExspression = true;
+                break;
+            }
+
+            if (openBrackets > maxNesting)
+            {
+                maxNesting = openBrackets;
+            }
+        }
+
+        if (openBrackets == 0 && isWrongExspression == false)
+        {
+            Console.WriteLine($"Скобочное выражение верно. Максимальная вложенность {maxNesting}");
+        }
+        else
+        {
+            Console.WriteLine("Некорректное скобочное выражение.");
+        }
     }
 }
-
-if (openBrackets == 0 && isWrongExspression == false)
-{
-    Console.WriteLine($"Скобочное выражение верно. Максимальная вложенность {maxNesting}");
-}
-else
-{
-    Console.WriteLine("Некорректное скобочное выражение.");
-}
-
-
