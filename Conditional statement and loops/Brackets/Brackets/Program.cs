@@ -2,39 +2,40 @@
 {
     private static void Main(string[] args)
     {
-        Console.Write("Введите скобочное выражение :");
+        Console.Write("Введите выражение :");
         string inputBracketsExpression = Console.ReadLine();
 
-        int maxNesting = 0;
-        int openBrackets = 0;
-        bool isWrongExspression = false;
+        char openBracket = '(';
+        char closeBracket = ')';
+
+        int deep = 0;
+        int maxDeep = 0;
 
         for (int i = 0; i < inputBracketsExpression.Length; i++)
         {
-            if (inputBracketsExpression[i] == '(')
+            if (inputBracketsExpression[i] == openBracket)
             {
-                openBrackets++;
+                deep++;
             }
-            else
+            else if (inputBracketsExpression[i] == closeBracket)
             {
-                openBrackets--;
+                deep--;
             }
 
-            if (openBrackets < 0)
+            if (deep < 0)
             {
-                isWrongExspression = true;
                 break;
             }
 
-            if (openBrackets > maxNesting)
+            if (deep > maxDeep)
             {
-                maxNesting = openBrackets;
+                maxDeep = deep;
             }
         }
 
-        if (openBrackets == 0 && isWrongExspression == false)
+        if (deep == 0)
         {
-            Console.WriteLine($"Скобочное выражение верно. Максимальная вложенность {maxNesting}");
+            Console.WriteLine($"Скобочное выражение верно. Максимальная вложенность {maxDeep}");
         }
         else
         {
