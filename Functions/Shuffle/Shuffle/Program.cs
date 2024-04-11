@@ -20,7 +20,7 @@
 
         for (int i = 0; i < numbers.Length; i++)
         {
-            index = random.Next(i);
+            index = random.Next(i+1);
             numbers[i] = numbers[index];
             numbers[index] = i;
         }

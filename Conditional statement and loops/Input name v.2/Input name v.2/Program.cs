@@ -12,6 +12,6 @@ for (int i = 0; i < borderLength; i++)
     border += inputDrawSymbol;
 }
 
-Console.WriteLine(border);
-Console.WriteLine(inputDrawSymbol + inputName + inputDrawSymbol);
+Console.WriteLine(border+"\n");
+Console.WriteLine(inputDrawSymbol + inputName + inputDrawSymbol + "\n");
 Console.WriteLine(border);

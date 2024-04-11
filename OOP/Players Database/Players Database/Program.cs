@@ -1,45 +1,86 @@
 ﻿using System;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
+
+ void AddPlayerCommand(Database players)
+{
+    Console.Write("Введите никнейм: ");
+    string nickName = Console.ReadLine();
+
+    Console.Write("Введите уровень игрока: ");
+    int level = Convert.ToInt32(Console.ReadLine());
+
+    Person person = new Person(nickName, level);
+    players.Add(person);
+}
+
+void RemovePlayerCommand(Database players)
+{
+    Console.Write("Введите уникальный номер пользователя, которого хотите удалить: ");
+    int  playerUid = Convert.ToInt32(Console.ReadLine());
+    players.RemoveById(playerUid);
+}
+
+void BunOrUnbunPlayerCommand (Database players, bool status)
+{
+    string playerBunStatus = status == true ? "забанить" : "разбанить";
+
+    Console.Write($"Введите уникальный номер пользователя, которого хотите {playerBunStatus}: ");
+    int playerUid = Convert.ToInt32(Console.ReadLine());
+
+    players.BunOrUnbunById(playerUid, status);
+}
 
 const string AddCommand = "add";
 const string RemoveCommand = "remove";
 const string BanCommand = "ban";
 const string UnbanCommand = "unban";
-
-string command = "";
+const string PLayersList = "list";
+const string ExitCommand = "exit";
 
 Database players = new Database();
 
-List<Person> persons = new List<Person>() {
-    new Person ("Nagibator228", 9),
-    new Person ("ybicaNoobov", 1),
-    new Person ("S_T_A_L_K_E_R", 13),
-};
+bool isExit = false;
+string command = "";
 
+int playerUid;
 
-Console.Write($"Введите одну из доступных команд ({AddCommand}, {RemoveCommand}, {BanCommand}, {UnbanCommand}): ");
-command = Console.ReadLine();
-
-switch(command)
+while (isExit == false)
 {
-    case AddCommand:
-        string nickName = Console.ReadLine();
-        int level = Convert.ToInt32(Console.ReadLine());
+    Console.Write($"Введите одну из доступных команд ({AddCommand}, {RemoveCommand}, {BanCommand}, {UnbanCommand}, {PLayersList}, {ExitCommand}): ");
+    command = Console.ReadLine();
 
-        Person person = new Person (nickName, level);
-        players.Add (person);
+    switch (command)
+    {
+        case PLayersList:
+            players.PlayersList();
 
-        break;
-    case RemoveCommand:
-        break;
-    case BanCommand:
-        break;
-    case UnbanCommand:
-        break;
-    default:
-        Console.WriteLine("Некорректный ввод");
-        break;
+            break;
+        case AddCommand:
+            AddPlayerCommand(players);
+
+            break;
+        case RemoveCommand:
+            RemovePlayerCommand(players);
+
+            break;
+        case BanCommand:
+            BunOrUnbunPlayerCommand(players, true);
+
+            break;
+        case UnbanCommand:
+            BunOrUnbunPlayerCommand(players, false);
+
+            break;
+        case ExitCommand:
+            isExit = true;
+
+            break;
+        default:
+            Console.WriteLine("Некорректный ввод");
+            break;
+    }
 }
 
 class Database
@@ -61,19 +102,24 @@ class Database
         }
     }
     
-    public void BunByID(int id)
+    public void BunOrUnbunById(int id, bool status)
     {
         if (IsFind(id, out Person player))
         {
-            player.IsBanned = true;
+            player.IsBanned = status;
         }
     }
 
-    public void UnbunByID(int id)
+    public void PlayersList()
     {
-        if (IsFind(id, out Person player))
+        if (Players.Count == 0)
         {
-            player.IsBanned = false;
+            Console.WriteLine("Список пуст");
+        }
+
+        foreach (var player in Players)
+        {
+            Console.WriteLine("Id игрока: " + player.Id + "\nИмя игрока: "+ player.NickName + "\nУровень игрока: " + player.Level + "\nСтатус бана: " + player.IsBanned);
         }
     }
 
