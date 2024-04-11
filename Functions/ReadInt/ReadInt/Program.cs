@@ -9,7 +9,6 @@
     static int ReadInt()
     {
         int number;
-
         Console.WriteLine("Введите число:");
 
         while (int.TryParse(Console.ReadLine(), out number) == false)
