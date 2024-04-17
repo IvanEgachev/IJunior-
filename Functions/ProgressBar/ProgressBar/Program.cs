@@ -8,40 +8,43 @@ internal class Program
         int barMaxValue = 100;
 
         string healthBarName = "Здоровье";
-        string manaName = "Мана";
+        string manaBarName = "Мана";
+
+        int healthBarLength = 20;
+        int manaBarLength = 35;
 
         string progressBar;
         int inputProgress;
         int cursorPositionX;
         int cursorPositionY;
 
-        InputBarData(out inputProgress, out cursorPositionX, out cursorPositionY, barMinValue, barMaxValue);
-        progressBar = CreateProgressBar(inputProgress,cursorPositionX, barMinValue, barMaxValue);
+        EnterBarData(out inputProgress, out cursorPositionX, out cursorPositionY, barMinValue, barMaxValue);
+        progressBar = CreateProgressBar(inputProgress, barMinValue, barMaxValue, healthBarLength);
         OutputProgressBar(healthBarName, progressBar, cursorPositionX, cursorPositionY);
 
-        InputBarData(out inputProgress, out cursorPositionX, out cursorPositionY, barMinValue, barMaxValue);
-        progressBar = CreateProgressBar(inputProgress, cursorPositionX, barMinValue, barMaxValue);
-        OutputProgressBar(manaName, progressBar, cursorPositionX, cursorPositionY);
+        EnterBarData(out inputProgress, out cursorPositionX, out cursorPositionY, barMinValue, barMaxValue);
+        progressBar = CreateProgressBar(inputProgress, barMinValue, barMaxValue, manaBarLength);
+        OutputProgressBar(manaBarName, progressBar, cursorPositionX, cursorPositionY);
     }
 
-        static void InputBarData(out int inputProgress, out int cursorPositionX, out int cursorPositionY, int barMinValue, int barMaxValue)
+        static void EnterBarData(out int inputProgress, out int cursorPositionX, out int cursorPositionY, int barMinValue, int barMaxValue)
         {
+            bool result;
+
             Console.Write("Укажите на какой строке расположить бар: ");
-            cursorPositionY = Convert.ToInt32(Console.ReadLine());
+            result = int.TryParse(Console.ReadLine(), out cursorPositionY);
 
             Console.Write("Укажите отступ от начала строки: ");
-            cursorPositionX = Convert.ToInt32(Console.ReadLine());
+            result = int.TryParse(Console.ReadLine(), out cursorPositionX);
 
             Console.Write($"Укажите процент здоровья (от {barMinValue} до {barMaxValue}): ");
-            inputProgress = Convert.ToInt32(Console.ReadLine());
-        }
+            result = int.TryParse(Console.ReadLine(), out inputProgress);
+    }
 
-        static string CreateProgressBar(int progress, int cursorPositionX, int barMinValue, int barMaxValue)
+        static string CreateProgressBar(int progress, int barMinValue, int barMaxValue, int barLength)
         {
             char fillElement = '█';
             char emptyElement = '▒';
-
-            int barLength = (barMaxValue - barMinValue) - cursorPositionX;
 
             float progressPercentage = (float)progress / barMaxValue;
 
@@ -55,7 +58,7 @@ internal class Program
         }
 
          static void OutputProgressBar(string barName,string progressBar, int cursorPositionX, int cursorPositionY)
-        {
+         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.SetCursorPosition(cursorPositionX, cursorPositionY);
 
@@ -63,5 +66,5 @@ internal class Program
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
-        }
+         }
 }
