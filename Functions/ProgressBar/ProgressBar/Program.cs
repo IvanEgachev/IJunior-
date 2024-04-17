@@ -29,16 +29,16 @@ internal class Program
 
         static void EnterBarData(out int inputProgress, out int cursorPositionX, out int cursorPositionY, int barMinValue, int barMaxValue)
         {
-            bool result;
+            bool isNumber;
 
             Console.Write("Укажите на какой строке расположить бар: ");
-            result = int.TryParse(Console.ReadLine(), out cursorPositionY);
+            isNumber = int.TryParse(Console.ReadLine(), out cursorPositionY);
 
             Console.Write("Укажите отступ от начала строки: ");
-            result = int.TryParse(Console.ReadLine(), out cursorPositionX);
+            isNumber = int.TryParse(Console.ReadLine(), out cursorPositionX);
 
             Console.Write($"Укажите процент здоровья (от {barMinValue} до {barMaxValue}): ");
-            result = int.TryParse(Console.ReadLine(), out inputProgress);
+            isNumber = int.TryParse(Console.ReadLine(), out inputProgress);
     }
 
         static string CreateProgressBar(int progress, int barMinValue, int barMaxValue, int barLength)
