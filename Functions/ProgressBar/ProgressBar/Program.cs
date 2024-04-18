@@ -1,32 +1,42 @@
 ﻿using System;
-using System.Diagnostics;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
         string healthBarName = "Здоровье";
-        string manaBarName = "Мана";
+        int healthBarProgress = 0;
+        int healthBarLength = 0;
 
-        DrawBar(healthBarName);
-        DrawBar(manaBarName);
+        Console.Write($"Укажите процент здоровья: ");
+        healthBarProgress = ReadInt();
+
+        Console.Write($"Укажите длину бара: ");
+        healthBarLength = ReadInt();
+
+        DrawBar(healthBarName, healthBarProgress, healthBarLength);
+
+        string manaBarName = "Мана";
+        int manaBarProgress = 0;
+        int manaBarLength = 0;
+
+        Console.Write($"Укажите процент маны: ");
+        manaBarProgress = ReadInt();
+
+        Console.Write($"Укажите длину бара: ");
+        manaBarLength = ReadInt();
+
+        DrawBar(manaBarName, manaBarProgress, manaBarLength);
     }
 
-    static void DrawBar(string barName)
+    static void DrawBar(string barName, int barProgress, int barLength)
     {
         int maxPercentage = 100;
         int minPercentage = 0;
-
         int minbarLength = 1;
 
-        int barProgress = 0;
-        int barLength = 0;
-
-        Console.Write($"Укажите процент {barName} (от {minPercentage} до {maxPercentage}): ");
-        barProgress = Math.Clamp(ReadInt(),minPercentage, maxPercentage);
-
-        Console.Write($"Укажите длину: ");
-        barLength = Math.Clamp(ReadInt(), minbarLength, int.MaxValue);
+        barProgress = Math.Clamp(barProgress, minPercentage, maxPercentage);
+        barLength = Math.Clamp(barLength, minbarLength, int.MaxValue);
 
         char fillElement = '█';
         char emptyElement = '▒';
