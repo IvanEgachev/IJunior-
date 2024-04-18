@@ -1,70 +1,63 @@
 ﻿using System;
+using System.Diagnostics;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        int barMinValue = 0;
-        int barMaxValue = 100;
-
         string healthBarName = "Здоровье";
+        int healthBarProgress = 0;
+        int healthBarLength = 0;
+
         string manaBarName = "Мана";
+        int manaBarProgress = 0;
+        int manaBarLength = 0;
 
-        int healthBarLength = 20;
-        int manaBarLength = 35;
+        Console.Write($"Укажите процент здоровья: ");
+        healthBarProgress = ReadInt();
 
-        string progressBar;
-        int inputProgress;
-        int cursorPositionX;
-        int cursorPositionY;
+        Console.Write($"Укажите длину: ");
+        healthBarLength = ReadInt();
 
-        EnterBarData(out inputProgress, out cursorPositionX, out cursorPositionY, barMinValue, barMaxValue);
-        progressBar = CreateProgressBar(inputProgress, barMinValue, barMaxValue, healthBarLength);
-        OutputProgressBar(healthBarName, progressBar, cursorPositionX, cursorPositionY);
+        DrawBar(healthBarName, healthBarProgress, healthBarLength);
 
-        EnterBarData(out inputProgress, out cursorPositionX, out cursorPositionY, barMinValue, barMaxValue);
-        progressBar = CreateProgressBar(inputProgress, barMinValue, barMaxValue, manaBarLength);
-        OutputProgressBar(manaBarName, progressBar, cursorPositionX, cursorPositionY);
+        Console.Write($"Укажите процент маны: ");
+        manaBarProgress = ReadInt();
+
+        Console.Write($"Укажите длину: ");
+        manaBarLength = ReadInt();
+        
+        DrawBar(manaBarName, manaBarProgress, manaBarLength);
     }
 
-        static void EnterBarData(out int inputProgress, out int cursorPositionX, out int cursorPositionY, int barMinValue, int barMaxValue)
-        {
-            bool isNumber;
+    static void DrawBar(string barName, int barProgress, int barLength)
+    {
+        char fillElement = '█';
+        char emptyElement = '▒';
 
-            Console.Write("Укажите на какой строке расположить бар: ");
-            isNumber = int.TryParse(Console.ReadLine(), out cursorPositionY);
+        float filledBarLength = barLength * barProgress / 100;
+        int emptyBarLength = barLength - (int)filledBarLength;
 
-            Console.Write("Укажите отступ от начала строки: ");
-            isNumber = int.TryParse(Console.ReadLine(), out cursorPositionX);
+        string progressBar = string.Format(barProgress + "% " + new string(fillElement, (int)filledBarLength)
+            + new string(emptyElement, emptyBarLength));
 
-            Console.Write($"Укажите процент здоровья (от {barMinValue} до {barMaxValue}): ");
-            isNumber = int.TryParse(Console.ReadLine(), out inputProgress);
+        Console.ForegroundColor = ConsoleColor.Red;
+
+        Console.WriteLine(barName + ": " + progressBar);
+
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.BackgroundColor = ConsoleColor.Black;
     }
 
-        static string CreateProgressBar(int progress, int barMinValue, int barMaxValue, int barLength)
+    static int ReadInt()
+    {
+        int number;
+
+        while (int.TryParse(Console.ReadLine(), out number) == false)
         {
-            char fillElement = '█';
-            char emptyElement = '▒';
-
-            float progressPercentage = (float)progress / barMaxValue;
-
-            float filledBarLength = barLength * progressPercentage;
-            int emptyBarLength = barLength - (int)filledBarLength;
-
-            string progressBar = string.Format(progress + "% " + new string(fillElement, (int)filledBarLength)
-                + new string(emptyElement, emptyBarLength));
-
-            return progressBar;
+            Console.WriteLine("Это не число!");
         }
 
-         static void OutputProgressBar(string barName,string progressBar, int cursorPositionX, int cursorPositionY)
-         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-
-            Console.WriteLine(barName+ ": " + progressBar);
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
-         }
+        return number;
+    }
 }
