@@ -4,9 +4,9 @@
     {
         Console.CursorVisible = false;
 
-        int playTime = 15;
-        DateTime endGameTimer = DateTime.Now.AddSeconds(playTime);
-        TimeSpan delta = new TimeSpan(0, 0, 0, playTime);
+        int playTimeSeconds = 15;
+        DateTime endGameTimer = DateTime.Now.AddSeconds(playTimeSeconds);
+        TimeSpan delta = new TimeSpan(0, 0, 0, playTimeSeconds);
 
         char[,] map = new char[,] { { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
                                     { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
@@ -66,7 +66,7 @@
                     playerX += playerDX;
                     playerY += playerDY;
 
-                    OutputToConsole(player.ToString(), playerY, playerX);
+                    OutputToConsole(player.ToString(), playerShiftY, playerShiftX);
                 }
             }
 
@@ -77,7 +77,15 @@
             OutputToConsole($"Осталось {delta.Minutes.ToString("00")}:{delta.Seconds.ToString("00")}", 0, 21);
         }
 
-        OutputToConsole("Игра окончена!", 0, 22);
+        if (collectedCoinCount == coinsOnMapCount)
+        {
+            OutputToConsole("Вы победили!", 0, 22);
+        }
+        else
+        {
+            OutputToConsole("Игра окончена!", 0, 22);
+        }
+        
         Console.ReadKey();
     }
 
