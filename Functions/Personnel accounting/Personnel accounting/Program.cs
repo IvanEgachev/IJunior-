@@ -115,7 +115,7 @@ internal partial class Program
     {
         Console.WriteLine("Удалить досье сотрудника под номером: ");
 
-        int indexToDelete = Convert.ToInt32(Console.ReadLine());
+        int indexToDelete = ReadInt();
 
         if (indexToDelete > 0 && indexToDelete <= fullNames.Length)
         {
@@ -160,6 +160,19 @@ internal partial class Program
 
         Console.WriteLine("Нажмите любую клавишу, чтобы продолжить");
         Console.ReadKey();
+    }
+
+    static int ReadInt()
+    {
+        int number;
+        Console.WriteLine("Введите число:");
+
+        while (int.TryParse(Console.ReadLine(), out number) == false)
+        {
+            Console.WriteLine("Это не число!");
+        }
+
+        return number;
     }
 }
 
