@@ -9,7 +9,7 @@
         TimeSpan delta = new TimeSpan(0, 0, 0, playTimeSeconds);
 
         char[,] map = new char[,] { { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-                                    { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
+                                    { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', '0', ' ', ' ', ' ',' ', ' ', ' ', '#',},
                                     { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', ' ', '#', '#',},
                                     { '#', '#', '#', '#', ' ', ' ', ' ', '0', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', '#', ' ', '#',},
                                     { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', '0', ' ',' ', '#', ' ', '#',},
@@ -29,11 +29,11 @@
         char cleaner = ' ';
         char coin = '0';
 
-        int playerX;
-        int playerY;
+        int playerPositionX;
+        int playerPositionY;
 
-        int playerDX = 0;
-        int playerDY = 0;
+        int playerDirectionX = 0;
+        int playerDirectionY = 0;
 
         int playerShiftX;
         int playerShiftY;
@@ -42,20 +42,20 @@
         int collectedCoinCount = 0;
 
         DrawMap(map);
-        GetItemPosition(map, out playerX, out playerY, player);
+        GetItemPosition(map, out playerPositionX, out playerPositionY, player);
 
         while (delta.TotalSeconds > 0 && collectedCoinCount != coinsOnMapCount)
         {
             if (Console.KeyAvailable)
             {
-                ChangeDirection(ref playerDX, ref playerDY);
+                ChangeDirection(ref playerDirectionX, ref playerDirectionY);
 
-                playerShiftX = playerX + playerDX;
-                playerShiftY = playerY + playerDY;
+                playerShiftX = playerPositionX + playerDirectionX;
+                playerShiftY = playerPositionY + playerDirectionY;
 
                 if (map[playerShiftX, playerShiftY] != block)
                 {
-                    OutputToConsole(Convert.ToString(cleaner), playerY, playerX);
+                    OutputToConsole(Convert.ToString(cleaner), playerPositionY, playerPositionX);
 
                     if (map[playerShiftX, playerShiftY] == coin)
                     {
@@ -63,8 +63,8 @@
                         map[playerShiftX, playerShiftY] = cleaner;
                     }
 
-                    playerX += playerDX;
-                    playerY += playerDY;
+                    playerPositionX += playerDirectionX;
+                    playerPositionY += playerDirectionY;
 
                     OutputToConsole(player.ToString(), playerShiftY, playerShiftX);
                 }
@@ -138,26 +138,26 @@
         return itemCount;
     }
 
-    static void ChangeDirection(ref int playerDX, ref int playerDY )
+    static void ChangeDirection(ref int playerDirectionX, ref int playerDirectionY )
     {
         ConsoleKeyInfo key = Console.ReadKey(true);
 
-        playerDX = 0;
-        playerDY = 0;
+        playerDirectionX = 0;
+        playerDirectionY = 0;
 
         switch (key.Key)
         {
             case ConsoleKey.UpArrow:
-                playerDX = -1;
+                playerDirectionX = -1;
                 break;
             case ConsoleKey.DownArrow:
-                playerDX = 1;
+                playerDirectionX = 1;
                 break;
             case ConsoleKey.LeftArrow:
-                playerDY = -1;
+                playerDirectionY = -1;
                 break;
             case ConsoleKey.RightArrow:
-                playerDY = 1;
+                playerDirectionY = 1;
                 break;
             default:
                 break;
