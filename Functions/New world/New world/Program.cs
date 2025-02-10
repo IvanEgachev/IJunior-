@@ -1,5 +1,15 @@
-﻿ class Program
+﻿class Program
 {
+    private const char Player = '@';
+    private const char Block = '#';
+    private const char Cleaner = ' ';
+    private const char Coin = '0';
+
+    private const ConsoleKey MoveUp = ConsoleKey.UpArrow;
+    private const ConsoleKey MoveDown = ConsoleKey.DownArrow;
+    private const ConsoleKey MoveLeft = ConsoleKey.LeftArrow;
+    private const ConsoleKey MoveRight = ConsoleKey.RightArrow;
+
     private static void Main(string[] eventArgs)
     {
         Console.CursorVisible = false;
@@ -8,81 +18,39 @@
         DateTime endGameTimer = DateTime.Now.AddSeconds(playTimeSeconds);
         TimeSpan delta = new TimeSpan(0, 0, 0, playTimeSeconds);
 
-        char[,] map = new char[,] { { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-                                    { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', '0', ' ', ' ', ' ',' ', ' ', ' ', '#',},
-                                    { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', ' ', '#', '#',},
-                                    { '#', '#', '#', '#', ' ', ' ', ' ', '0', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', '#', ' ', '#',},
-                                    { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', '0', ' ',' ', '#', ' ', '#',},
-                                    { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', ' ', '#', '#',},
-                                    { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
-                                    { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', '@', ' ', ' ', ' ', ' ', '#', '#', '#','#', ' ', ' ', '#',},
-                                    { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
-                                    { '#', ' ', '#', '0', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
-                                    { '#', ' ', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
-                                    { '#', ' ', ' ', ' ', ' ', '#', '0', '#', ' ', ' ', '#', ' ', ' ', '#', ' ', ' ',' ', ' ', ' ', '#',},
-                                    { '#', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', ' ', '#', ' ', ' ', '#', ' ', ' ',' ', ' ', ' ', '#',},
-                                    { '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#', ' ', ' ',' ', ' ', ' ', '#',},
-                                    { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}, };
-
-        char player = '@';
-        char block = '#';
-        char cleaner = ' ';
-        char coin = '0';
+        char[,] map = new char[,] {
+            { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', '0', ' ', ' ', ' ',' ', ' ', ' ', '#',},
+            { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', ' ', '#', '#',},
+            { '#', '#', '#', '#', ' ', ' ', ' ', '0', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', '#', ' ', '#',},
+            { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', '0', ' ',' ', '#', ' ', '#',},
+            { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', ' ', '#', '#',},
+            { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
+            { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', '@', ' ', ' ', ' ', ' ', '#', '#', '#','#', ' ', ' ', '#',},
+            { '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
+            { '#', ' ', '#', '0', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
+            { '#', ' ', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', '#',},
+            { '#', ' ', ' ', ' ', ' ', '#', '0', '#', ' ', ' ', '#', ' ', ' ', '#', ' ', ' ',' ', ' ', ' ', '#',},
+            { '#', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', ' ', '#', ' ', ' ', '#', ' ', ' ',' ', ' ', ' ', '#',},
+            { '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#', ' ', ' ',' ', ' ', ' ', '#',},
+            { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+        };
 
         int playerPositionX;
         int playerPositionY;
-
-        int playerDirectionX = 0;
-        int playerDirectionY = 0;
-
-        int playerShiftX = 0;
-        int playerShiftY = 0;
-
-        int coinsOnMapCount = GetItemsCount(map, coin);
+        int coinsOnMapCount = GetItemsCount(map, Coin);
         int collectedCoinCount = 0;
 
         DrawMap(map);
-        GetItemPosition(map, out playerPositionX, out playerPositionY, player);
+        GetItemPosition(map, out playerPositionX, out playerPositionY, Player);
 
         while (delta.TotalSeconds > 0 && collectedCoinCount != coinsOnMapCount)
         {
-            if (Console.KeyAvailable)
-            {
-                ChangeDirection(ref playerDirectionX, ref playerDirectionY);
-                ChangeShift(ref playerShiftX, ref playerShiftY, playerPositionX, playerDirectionX, playerPositionY, playerDirectionY);
-
-                if (map[playerShiftX, playerShiftY] != block)
-                {
-                    OutputToConsole(Convert.ToString(cleaner), playerPositionY, playerPositionX);
-
-                    if (map[playerShiftX, playerShiftY] == coin)
-                    {
-                        collectedCoinCount++;
-                        map[playerShiftX, playerShiftY] = cleaner;
-                    }
-
-                    ChangePosition(ref playerPositionX, ref playerPositionY, playerDirectionX, playerDirectionY);
-
-                    OutputToConsole(player.ToString(), playerShiftY, playerShiftX);
-                }
-            }
-
-            OutputToConsole("Соберите максимальное количеество монет за указанное время:", 0, 19);
-            OutputToConsole($"Количество монет: {collectedCoinCount}/{coinsOnMapCount}", 0, 20);
-
-            delta = Update(endGameTimer);
-            OutputToConsole($"Осталось {delta.Minutes:00}:{delta.Seconds:00}", 0, 21);
+            PlayerInput(map, ref playerPositionX, ref playerPositionY, ref collectedCoinCount);
+            UpdateGameStatus(ref delta, endGameTimer, collectedCoinCount, coinsOnMapCount);
         }
 
-        if (collectedCoinCount == coinsOnMapCount)
-        {
-            OutputToConsole("Вы победили!", 0, 22);
-        }
-        else
-        {
-            OutputToConsole("Игра окончена!", 0, 22);
-        }
-        
+        DisplayGameResult(collectedCoinCount, coinsOnMapCount);
         Console.ReadKey();
     }
 
@@ -94,7 +62,6 @@
             {
                 Console.Write(map[i, j]);
             }
-
             Console.WriteLine();
         }
     }
@@ -112,6 +79,7 @@
                 {
                     positionX = i;
                     positionY = j;
+                    return;
                 }
             }
         }
@@ -135,54 +103,92 @@
         return itemCount;
     }
 
-    static void ChangeDirection(ref int playerDirectionX, ref int playerDirectionY )
+    static void PlayerInput(char[,] map, ref int playerPositionX, ref int playerPositionY, ref int collectedCoinCount)
+    {
+        if (Console.KeyAvailable)
+        {
+            int playerDirectionX = 0;
+            int playerDirectionY = 0;
+
+            ReadDirection(ref playerDirectionX, ref playerDirectionY);
+
+            int newPlayerPositionX = playerPositionX + playerDirectionX;
+            int newPlayerPositionY = playerPositionY + playerDirectionY;
+
+            if (map[newPlayerPositionX, newPlayerPositionY] != Block)
+            {
+                MovePlayer(map, ref playerPositionX, ref playerPositionY, newPlayerPositionX, newPlayerPositionY, ref collectedCoinCount);
+            }
+        }
+    }
+
+    static void MovePlayer(char[,] map, ref int playerPositionX, ref int playerPositionY, int newPlayerPositionX, int newPlayerPositionY, ref int collectedCoinCount)
+    {
+        OutputToConsole(Cleaner.ToString(), playerPositionY, playerPositionX);
+
+        if (map[newPlayerPositionX, newPlayerPositionY] == Coin)
+        {
+            collectedCoinCount++;
+            map[newPlayerPositionX, newPlayerPositionY] = Cleaner;
+        }
+
+        playerPositionX = newPlayerPositionX;
+        playerPositionY = newPlayerPositionY;
+
+        OutputToConsole(Player.ToString(), playerPositionY, playerPositionX);
+    }
+
+    static void ReadDirection(ref int playerDirectionX, ref int playerDirectionY)
     {
         ConsoleKeyInfo key = Console.ReadKey(true);
-
-        const ConsoleKey up = ConsoleKey.UpArrow;
-        const ConsoleKey down = ConsoleKey.DownArrow;
-        const ConsoleKey left = ConsoleKey.LeftArrow;
-        const ConsoleKey right = ConsoleKey.RightArrow;
 
         playerDirectionX = 0;
         playerDirectionY = 0;
 
         switch (key.Key)
         {
-            case up:
+            case MoveUp:
                 playerDirectionX = -1;
                 break;
 
-            case down:
+            case MoveDown:
                 playerDirectionX = 1;
                 break;
 
-            case left:
+            case MoveLeft:
                 playerDirectionY = -1;
                 break;
 
-            case right:
+            case MoveRight:
                 playerDirectionY = 1;
                 break;
         }
     }
 
-    static void ChangeShift(ref int playerShiftX, ref int playerShiftY, int playerPositionX, int playerDirectionX,
-                            int playerPositionY, int playerDirectionY)
+    static void UpdateGameStatus(ref TimeSpan delta, DateTime endGameTimer, int collectedCoinCount, int coinsOnMapCount)
     {
-        playerShiftX = playerPositionX + playerDirectionX;
-        playerShiftY = playerPositionY + playerDirectionY;
-    }
+        OutputToConsole("Соберите максимальное количество монет за указанное время:", 0, 19);
+        OutputToConsole($"Количество монет: {collectedCoinCount}/{coinsOnMapCount}", 0, 20);
 
-    static void ChangePosition(ref int playerPositionX, ref int playerPositionY, int playerDirectionX, int playerDirectionY)
-    {
-        playerPositionX += playerDirectionX;
-        playerPositionY += playerDirectionY;
+        delta = Update(endGameTimer);
+        OutputToConsole($"Осталось {delta.Minutes:00}:{delta.Seconds:00}", 0, 21);
     }
 
     static TimeSpan Update(DateTime endGameTimer)
     {
         return endGameTimer - DateTime.Now;
+    }
+
+    static void DisplayGameResult(int collectedCoinCount, int coinsOnMapCount)
+    {
+        if (collectedCoinCount == coinsOnMapCount)
+        {
+            OutputToConsole("Вы победили!", 0, 22);
+        }
+        else
+        {
+            OutputToConsole("Игра окончена!", 0, 22);
+        }
     }
 
     static void OutputToConsole(string message, int positionY, int positionX)
@@ -191,4 +197,3 @@
         Console.Write(message);
     }
 }
-
