@@ -117,25 +117,29 @@
 
             if (map[newPlayerPositionX, newPlayerPositionY] != Block)
             {
-                MovePlayer(map, ref playerPositionX, ref playerPositionY, newPlayerPositionX, newPlayerPositionY, ref collectedCoinCount);
+                MovePlayer(map, ref playerPositionX, ref playerPositionY, newPlayerPositionX, newPlayerPositionY);
+                PickUpItem(map, newPlayerPositionX, newPlayerPositionY, ref collectedCoinCount);
             }
         }
     }
 
-    static void MovePlayer(char[,] map, ref int playerPositionX, ref int playerPositionY, int newPlayerPositionX, int newPlayerPositionY, ref int collectedCoinCount)
+    static void MovePlayer(char[,] map, ref int playerPositionX, ref int playerPositionY, int newPlayerPositionX, int newPlayerPositionY)
     {
         OutputToConsole(Cleaner.ToString(), playerPositionY, playerPositionX);
-
-        if (map[newPlayerPositionX, newPlayerPositionY] == Coin)
-        {
-            collectedCoinCount++;
-            map[newPlayerPositionX, newPlayerPositionY] = Cleaner;
-        }
 
         playerPositionX = newPlayerPositionX;
         playerPositionY = newPlayerPositionY;
 
         OutputToConsole(Player.ToString(), playerPositionY, playerPositionX);
+    }
+
+    static void PickUpItem(char[,] map, int newPlayerPositionX, int newPlayerPositionY, ref int collectedCoinCount)
+    {
+        if (map[newPlayerPositionX, newPlayerPositionY] == Coin)
+        {
+            collectedCoinCount++;
+            map[newPlayerPositionX, newPlayerPositionY] = Cleaner;
+        }
     }
 
     static void ReadDirection(ref int playerDirectionX, ref int playerDirectionY)
